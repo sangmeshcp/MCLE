@@ -1,0 +1,23 @@
+{
+  "openapi": "3.0.0",
+  "info": { "title": "Object Storage Service API", "version": "20160918" },
+  "x-mcle-excerpt": "Trimmed excerpt of the OCI Object Storage API spec. [VERIFY] upstream location/licence of OCI OpenAPI specs and replace with the pinned file (see specs/specs.lock).",
+  "paths": {
+    "/n/": { "get": { "operationId": "GetNamespace" } },
+    "/n/{namespaceName}/b/": {
+      "post": { "operationId": "CreateBucket" },
+      "get": { "operationId": "ListBuckets" }
+    },
+    "/n/{namespaceName}/b/{bucketName}/": {
+      "get": { "operationId": "GetBucket" },
+      "post": { "operationId": "UpdateBucket" },
+      "delete": { "operationId": "DeleteBucket" },
+      "head": { "operationId": "HeadBucket" }
+    },
+    "/n/{namespaceName}/b/{bucketName}/o/{objectName+}": {
+      "put": { "operationId": "PutObject" },
+      "get": { "operationId": "GetObject" },
+      "delete": { "operationId": "DeleteObject" }
+    }
+  }
+}

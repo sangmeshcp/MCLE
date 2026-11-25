@@ -1,0 +1,28 @@
+{
+  "source": "OCI IAM policy reference — Details for Object Storage (excerpt)",
+  "status": "excerpt [VERIFY against the OCI policy reference]",
+  "actions": [
+    "OBJECTSTORAGE_NAMESPACE_READ",
+    "BUCKET_INSPECT",
+    "BUCKET_READ",
+    "BUCKET_CREATE",
+    "BUCKET_UPDATE",
+    "BUCKET_DELETE",
+    "OBJECT_CREATE",
+    "OBJECT_OVERWRITE",
+    "OBJECT_READ",
+    "OBJECT_DELETE"
+  ],
+  "operations": {
+    "GetNamespace": "OBJECTSTORAGE_NAMESPACE_READ",
+    "CreateBucket": "BUCKET_CREATE",
+    "ListBuckets": "BUCKET_INSPECT",
+    "GetBucket": "BUCKET_READ",
+    "HeadBucket": "BUCKET_READ",
+    "UpdateBucket": "BUCKET_UPDATE",
+    "DeleteBucket": "BUCKET_DELETE",
+    "PutObject": "OBJECT_CREATE",
+    "GetObject": "OBJECT_READ",
+    "DeleteObject": "OBJECT_DELETE"
+  }
+}

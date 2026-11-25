@@ -1,0 +1,7 @@
+pytest
+boto3
+azure-mgmt-resource
+azure-core
+google-cloud-secret-manager
+oci
+ibm-platform-services

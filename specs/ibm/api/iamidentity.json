@@ -1,0 +1,10 @@
+{
+  "openapi": "3.0.0",
+  "info": { "title": "IBM Cloud IAM Identity — token endpoint", "version": "1.0" },
+  "x-mcle-excerpt": "The IAM token exchange endpoint used by every IBM SDK authenticator. [VERIFY] request/response fields against IBM Cloud IAM docs.",
+  "paths": {
+    "/identity/token": {
+      "post": { "operationId": "get_token", "x-mcle-iam-action": "none:unauthenticated" }
+    }
+  }
+}

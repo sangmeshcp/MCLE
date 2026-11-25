@@ -1,0 +1,21 @@
+{
+  "source": "IBM Cloud IAM actions — Resource Controller (excerpt)",
+  "status": "excerpt [VERIFY action names against IBM Cloud IAM docs]",
+  "actions": [
+    "resource-controller.instance.create",
+    "resource-controller.instance.retrieve",
+    "resource-controller.instance.update",
+    "resource-controller.instance.delete",
+    "resource-controller.instance.lock",
+    "resource-controller.instance.unlock"
+  ],
+  "operations": {
+    "list_resource_instances": "resource-controller.instance.retrieve",
+    "create_resource_instance": "resource-controller.instance.create",
+    "get_resource_instance": "resource-controller.instance.retrieve",
+    "update_resource_instance": "resource-controller.instance.update",
+    "delete_resource_instance": "resource-controller.instance.delete",
+    "lock_resource_instance": "resource-controller.instance.lock",
+    "unlock_resource_instance": "resource-controller.instance.unlock"
+  }
+}

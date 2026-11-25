@@ -1,0 +1,60 @@
+[service]
+cloud = "azure"
+name = "arm"
+display = "Resource Manager (generic ARM)"
+tier = "T0"
+engines = ["crud"]
+owners = ["@mcle/azure"]
+facade = "custom"
+protocol = "arm"
+case_insensitive_paths = true
+
+[service.api]
+source = "Azure/azure-rest-api-specs (Microsoft.Resources 2021-04-01)"
+format = "openapi"
+spec = "specs/azure/api/resources.json"
+version = "2021-04-01"
+iam_catalog = "specs/azure/iam/resources.json"
+
+[defaults]
+level = "L1"
+plane = "control"
+
+[ops.Subscriptions_List]
+custom = true
+[ops.Subscriptions_Get]
+custom = true
+[ops.Providers_List]
+custom = true
+[ops.Providers_Get]
+custom = true
+[ops.Providers_Register]
+custom = true
+[ops.ResourceGroups_List]
+custom = true
+[ops.ResourceGroups_CreateOrUpdate]
+custom = true
+[ops.ResourceGroups_Get]
+custom = true
+[ops.ResourceGroups_CheckExistence]
+custom = true
+[ops.ResourceGroups_Update]
+custom = true
+[ops.ResourceGroups_Delete]
+custom = true
+[ops.Resources_ListByResourceGroup]
+custom = true
+[ops.Resources_List]
+custom = true
+[ops.Resources_CreateOrUpdate]
+custom = true
+[ops.Resources_Get]
+custom = true
+[ops.Resources_CheckExistence]
+custom = true
+[ops.Resources_Update]
+custom = true
+[ops.Resources_Delete]
+custom = true
+[ops.Resources_ListBySubscriptionAndType]
+custom = true

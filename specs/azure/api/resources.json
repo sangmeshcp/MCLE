@@ -1,0 +1,50 @@
+{
+  "swagger": "2.0",
+  "info": { "title": "ResourceManagementClient", "version": "2021-04-01" },
+  "host": "management.azure.com",
+  "schemes": ["https"],
+  "x-mcle-excerpt": "Trimmed excerpt of Azure/azure-rest-api-specs specification/resources/resource-manager/Microsoft.Resources/stable/2021-04-01/resources.json (+ subscriptions.json). The upstream generic-resource paths `{resourceProviderNamespace}/{parentResourcePath}/{resourceType}/{resourceName}` are collapsed to the greedy `{resourcePath+}`; the ARM facade splits them. [VERIFY] replace with pinned upstream (see specs/specs.lock).",
+  "paths": {
+    "/subscriptions": {
+      "get": { "operationId": "Subscriptions_List" }
+    },
+    "/subscriptions/{subscriptionId}": {
+      "get": { "operationId": "Subscriptions_Get" }
+    },
+    "/subscriptions/{subscriptionId}/providers": {
+      "get": { "operationId": "Providers_List" }
+    },
+    "/subscriptions/{subscriptionId}/providers/{resourceProviderNamespace}": {
+      "get": { "operationId": "Providers_Get" }
+    },
+    "/subscriptions/{subscriptionId}/providers/{resourceProviderNamespace}/register": {
+      "post": { "operationId": "Providers_Register" }
+    },
+    "/subscriptions/{subscriptionId}/resourcegroups": {
+      "get": { "operationId": "ResourceGroups_List" }
+    },
+    "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}": {
+      "put": { "operationId": "ResourceGroups_CreateOrUpdate" },
+      "get": { "operationId": "ResourceGroups_Get" },
+      "head": { "operationId": "ResourceGroups_CheckExistence" },
+      "patch": { "operationId": "ResourceGroups_Update" },
+      "delete": { "operationId": "ResourceGroups_Delete", "x-ms-long-running-operation": true }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/resources": {
+      "get": { "operationId": "Resources_ListByResourceGroup" }
+    },
+    "/subscriptions/{subscriptionId}/resources": {
+      "get": { "operationId": "Resources_List" }
+    },
+    "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/{resourcePath+}": {
+      "put": { "operationId": "Resources_CreateOrUpdate", "x-ms-long-running-operation": true },
+      "get": { "operationId": "Resources_Get" },
+      "head": { "operationId": "Resources_CheckExistence" },
+      "patch": { "operationId": "Resources_Update", "x-ms-long-running-operation": true },
+      "delete": { "operationId": "Resources_Delete", "x-ms-long-running-operation": true }
+    },
+    "/subscriptions/{subscriptionId}/providers/{resourcePath+}": {
+      "get": { "operationId": "Resources_ListBySubscriptionAndType" }
+    }
+  }
+}

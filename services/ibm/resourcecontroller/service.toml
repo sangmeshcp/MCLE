@@ -1,0 +1,28 @@
+[service]
+cloud = "ibm"
+name = "resourcecontroller"
+display = "Resource Controller"
+tier = "T0"
+engines = ["crud"]
+owners = ["@mcle/ibm"]
+facade = "generic"
+protocol = "ibmRest"
+
+[service.api]
+source = "IBM Cloud Resource Controller API v2"
+format = "openapi"
+spec = "specs/ibm/api/resourcecontroller.json"
+version = "2"
+iam_catalog = "specs/ibm/iam/resourcecontroller.json"
+
+[defaults]
+level = "L1"
+plane = "control"
+
+[crud.resources.resource_instance]
+id_param = "id"
+name_field = "name"
+list_field = "resources"
+url_prefix = "/v2/resource_instances"
+crn_service = "resource-controller"
+type_value = "service_instance"

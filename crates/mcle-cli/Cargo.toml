@@ -1,0 +1,43 @@
+[package]
+name = "mcle-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[[bin]]
+name = "mcle"
+path = "src/main.rs"
+
+[dependencies]
+anyhow.workspace = true
+bytes.workspace = true
+clap.workspace = true
+http.workspace = true
+http-body-util.workspace = true
+hyper.workspace = true
+hyper-util.workspace = true
+serde_json.workspace = true
+mcle-bundle = { workspace = true, default-features = true }
+mcle-core.workspace = true
+mcle-gateway.workspace = true
+mcle-persist.workspace = true
+mcle-sdk.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+
+[features]
+default = ["all"]
+all = ["mcle-bundle/all"]
+cloud-aws = ["mcle-bundle/all-aws"]
+cloud-azure = ["mcle-bundle/all-azure"]
+cloud-gcp = ["mcle-bundle/all-gcp"]
+cloud-oci = ["mcle-bundle/all-oci"]
+cloud-ibm = ["mcle-bundle/all-ibm"]
+
+[dev-dependencies]
+mcle-testkit.workspace = true
+
+[lints]
+workspace = true

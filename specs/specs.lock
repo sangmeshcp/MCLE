@@ -1,0 +1,63 @@
+# Vendored API specs and IAM catalogs.
+# status = excerpt: hand-trimmed subset matching upstream names/paths; must be
+# replaced by the pinned upstream file before claiming more than these ops.
+# ref = UNPINNED until vendored; licence must be confirmed before vendoring.
+
+[[spec]]
+path = "specs/aws/api/secretsmanager.json"
+source = "https://github.com/aws/api-models-aws (models/secrets-manager)"
+format = "smithy"
+ref = "UNPINNED"
+license = "Apache-2.0 (to confirm)"
+status = "excerpt"
+
+[[spec]]
+path = "specs/azure/api/resources.json"
+source = "https://github.com/Azure/azure-rest-api-specs (specification/resources/resource-manager/Microsoft.Resources/stable/2021-04-01)"
+format = "openapi"
+ref = "UNPINNED"
+license = "MIT (to confirm)"
+status = "excerpt"
+
+[[spec]]
+path = "specs/gcp/api/secretmanager.v1.json"
+source = "https://secretmanager.googleapis.com/$discovery/rest?version=v1"
+format = "discovery"
+ref = "UNPINNED"
+license = "to confirm"
+status = "excerpt"
+
+[[spec]]
+path = "specs/oci/api/objectstorage.json"
+source = "to confirm"
+format = "openapi"
+ref = "UNPINNED"
+license = "to confirm"
+status = "excerpt"
+
+[[spec]]
+path = "specs/ibm/api/resourcecontroller.json"
+source = "to confirm"
+format = "openapi"
+ref = "UNPINNED"
+license = "to confirm"
+status = "excerpt"
+
+[[spec]]
+path = "specs/ibm/api/iamidentity.json"
+source = "to confirm"
+format = "openapi"
+ref = "UNPINNED"
+license = "to confirm"
+status = "excerpt"
+
+[[catalog]]
+paths = [
+    "specs/aws/iam/secretsmanager.json",
+    "specs/azure/iam/resources.json",
+    "specs/gcp/iam/secretmanager.json",
+    "specs/oci/iam/objectstorage.json",
+    "specs/ibm/iam/resourcecontroller.json",
+]
+ref = "UNPINNED"
+status = "excerpt"

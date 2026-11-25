@@ -1,0 +1,35 @@
+[service]
+cloud = "gcp"
+name = "secretmanager"
+display = "Secret Manager"
+tier = "T0"
+engines = ["crud"]
+owners = ["@mcle/gcp"]
+facade = "generic"
+
+[service.api]
+source = "googleapis discovery (secretmanager v1)"
+format = "discovery"
+spec = "specs/gcp/api/secretmanager.v1.json"
+version = "v1"
+iam_catalog = "specs/gcp/iam/secretmanager.json"
+
+[defaults]
+level = "L1"
+plane = "control"
+
+[crud.resources.secret]
+parent_template = "projects/{projectsId}"
+collection = "secrets"
+id_query = "secretId"
+id_param = "secretsId"
+list_field = "secrets"
+create_time = "createTime"
+etag = "true"
+total_size = "true"
+
+[ops."projects.secrets.addVersion"]
+plane = "data"
+
+[ops."projects.secrets.versions.access"]
+plane = "data"

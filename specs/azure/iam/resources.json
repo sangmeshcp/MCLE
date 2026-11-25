@@ -1,0 +1,27 @@
+{
+  "source": "Azure resource provider operations — Microsoft.Resources (excerpt)",
+  "status": "excerpt [VERIFY against `az provider operation show --namespace Microsoft.Resources`]",
+  "actions": [
+    "Microsoft.Resources/subscriptions/read",
+    "Microsoft.Resources/subscriptions/providers/read",
+    "Microsoft.Resources/subscriptions/resourceGroups/read",
+    "Microsoft.Resources/subscriptions/resourceGroups/write",
+    "Microsoft.Resources/subscriptions/resourceGroups/delete",
+    "Microsoft.Resources/subscriptions/resourceGroups/resources/read",
+    "Microsoft.Resources/subscriptions/resources/read",
+    "*/register/action"
+  ],
+  "operations": {
+    "Providers_List": "Microsoft.Resources/subscriptions/providers/read",
+    "Providers_Get": "Microsoft.Resources/subscriptions/providers/read",
+    "Providers_Register": "*/register/action",
+    "Resources_ListByResourceGroup": "Microsoft.Resources/subscriptions/resourceGroups/resources/read",
+    "Resources_List": "Microsoft.Resources/subscriptions/resources/read",
+    "Resources_CreateOrUpdate": "{resourceType}/write",
+    "Resources_Get": "{resourceType}/read",
+    "Resources_CheckExistence": "{resourceType}/read",
+    "Resources_Update": "{resourceType}/write",
+    "Resources_Delete": "{resourceType}/delete",
+    "Resources_ListBySubscriptionAndType": "{resourceType}/read"
+  }
+}

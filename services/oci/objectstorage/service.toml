@@ -1,0 +1,44 @@
+[service]
+cloud = "oci"
+name = "objectstorage"
+display = "Object Storage"
+tier = "T0"
+engines = ["crud"]
+owners = ["@mcle/oci"]
+facade = "custom"
+protocol = "ociRest"
+
+[service.api]
+source = "OCI Object Storage API (20160918)"
+format = "openapi"
+spec = "specs/oci/api/objectstorage.json"
+version = "20160918"
+iam_catalog = "specs/oci/iam/objectstorage.json"
+
+[defaults]
+level = "L1"
+plane = "control"
+
+[crud.resources.bucket]
+parent_param = "namespaceName"
+parent_field = "namespace"
+name_field = "name"
+name_param = "bucketName"
+ocid_type = "bucket"
+time_field = "timeCreated"
+created_by_field = "createdBy"
+not_found_code = "BucketNotFound"
+exists_code = "BucketAlreadyExists"
+defaults = '{"publicAccessType":"NoPublicAccess","storageTier":"Standard","objectEventsEnabled":false,"versioning":"Disabled","autoTiering":"Disabled","replicationEnabled":false,"isReadOnly":false,"metadata":{}}'
+
+[ops.GetNamespace]
+custom = true
+
+[ops.PutObject]
+plane = "data"
+
+[ops.GetObject]
+plane = "data"
+
+[ops.DeleteObject]
+plane = "data"
