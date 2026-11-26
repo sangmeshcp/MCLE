@@ -1,0 +1,22 @@
+{
+  "source": "IBM Cloud API docs \u2014 Resource Controller (cloud.ibm.com/docs/apis/resource-controller)",
+  "status": "excerpt, verified 2026-11-26",
+  "actions": [
+    "resource-controller.instance.create",
+    "resource-controller.instance.retrieve",
+    "resource-controller.instance.update",
+    "resource-controller.instance.delete",
+    "resource-controller.key.retrieve"
+  ],
+  "operations": {
+    "list_resource_instances": "resource-controller.instance.retrieve",
+    "create_resource_instance": "resource-controller.instance.create",
+    "get_resource_instance": "resource-controller.instance.retrieve",
+    "update_resource_instance": "resource-controller.instance.update",
+    "delete_resource_instance": "resource-controller.instance.delete",
+    "lock_resource_instance": "resource-controller.instance.update",
+    "unlock_resource_instance": "resource-controller.instance.update",
+    "cancel_lastop_resource_instance": "resource-controller.instance.delete",
+    "list_resource_keys_for_instance": "resource-controller.key.retrieve"
+  }
+}

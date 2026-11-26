@@ -1,0 +1,16 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "IBM Cloud IAM Identity \u2014 token endpoint",
+    "version": "1.0"
+  },
+  "x-mcle-excerpt": "IAM token endpoint. Grant type and response fields (access_token, refresh_token, token_type, expires_in, expiration) verified against cloud.ibm.com/docs/apis/iam-identity-token-api on 2026-11-26.",
+  "paths": {
+    "/identity/token": {
+      "post": {
+        "operationId": "get_token",
+        "x-mcle-iam-action": "none:unauthenticated"
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+[service]
+cloud = "aws"
+name = "secretsmanager"
+display = "Secrets Manager"
+tier = "T0"
+engines = ["crud"]
+owners = ["@mcle/aws"]
+facade = "generic"
+
+[service.api]
+source = "aws/api-models-aws@d504436b2739873d202b10a26bdecb620fa1e4f0"
+format = "smithy"
+spec = "specs/aws/api/secretsmanager.json"
+version = "2017-10-17"
+iam_catalog = "specs/aws/iam/secretsmanager.json"
+
+[defaults]
+level = "L1"
+plane = "control"
+
+[crud.resources.secret]
+display = "Secrets Manager"
+name_field = "Name"
+id_field = "SecretId"
+arn_template = "arn:{partition}:secretsmanager:{region}:{account}:secret:{name}-{rand6}"
+arn_output = "ARN"
+name_output = "Name"
+list_field = "SecretList"
+created_field = "CreatedDate"
+updated_field = "LastChangedDate"
+deleted_field = "DeletionDate"
+redact = "SecretString,SecretBinary,ClientRequestToken,ForceOverwriteReplicaSecret"
+
+[ops.GetSecretValue]
+plane = "data"
+
+[ops.PutSecretValue]
+plane = "data"

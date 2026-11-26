@@ -1,0 +1,22 @@
+[service]
+cloud = "ibm"
+name = "iamidentity"
+display = "IAM Identity (token endpoint)"
+tier = "T0"
+engines = []
+owners = ["@mcle/ibm"]
+facade = "custom"
+protocol = "ibmRest"
+
+[service.api]
+source = "IBM Cloud IAM Identity"
+format = "openapi"
+spec = "specs/ibm/api/iamidentity.json"
+version = "1"
+
+[defaults]
+level = "L2"
+plane = "control"
+
+[ops.get_token]
+custom = true

@@ -1,0 +1,20 @@
+[package]
+name = "mcle-cloud-azure"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+bytes.workspace = true
+serde_json.workspace = true
+mcle-identity.workspace = true
+mcle-sdk.workspace = true
+time.workspace = true
+uuid.workspace = true
+
+[dev-dependencies]
+mcle-core.workspace = true
+
+[lints]
+workspace = true

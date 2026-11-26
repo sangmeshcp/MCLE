@@ -1,0 +1,76 @@
+# Vendored API specs and IAM catalogs.
+# status = vendored: byte-for-byte copy of the upstream file at `ref`.
+# status = excerpt: MCLE-authored subset (operation names/paths only), checked against the
+#                   vendor docs because the upstream document is not redistributable.
+# Upstream licence texts: specs/LICENSES/.
+
+[[spec]]
+path = "specs/aws/api/secretsmanager.json"
+source = "https://github.com/aws/api-models-aws/blob/{ref}/models/secrets-manager/service/2017-10-17/secrets-manager-2017-10-17.json"
+format = "smithy"
+ref = "d504436b2739873d202b10a26bdecb620fa1e4f0"
+license = "Apache-2.0"
+license_file = "specs/LICENSES/aws-api-models-aws.Apache-2.0.txt"
+status = "vendored"
+
+[[spec]]
+path = "specs/azure/api/resources.json"
+source = "https://github.com/Azure/azure-rest-api-specs/blob/{ref}/specification/resources/resource-manager/Microsoft.Resources/resources/stable/2021-04-01/resources.json"
+format = "openapi"
+ref = "a4cb6169f575877aabf70fd232d610d118b938e9"
+license = "MIT"
+license_file = "specs/LICENSES/azure-rest-api-specs.MIT.txt"
+status = "vendored"
+
+[[spec]]
+path = "specs/azure/api/subscriptions.json"
+source = "https://github.com/Azure/azure-rest-api-specs/blob/{ref}/specification/resources/resource-manager/Microsoft.Resources/subscriptions/stable/2021-01-01/subscriptions.json"
+format = "openapi"
+ref = "a4cb6169f575877aabf70fd232d610d118b938e9"
+license = "MIT"
+license_file = "specs/LICENSES/azure-rest-api-specs.MIT.txt"
+status = "vendored"
+
+[[spec]]
+path = "specs/gcp/api/secretmanager.v1.json"
+source = "https://github.com/googleapis/google-api-go-client/blob/{ref}/secretmanager/v1/secretmanager-api.json"
+format = "discovery"
+ref = "1be593613920c8bef887e96e1a82e9a97398628c"
+license = "BSD-3-Clause"
+license_file = "specs/LICENSES/google-api-go-client.BSD-3-Clause.txt"
+status = "vendored"
+
+[[spec]]
+path = "specs/oci/api/objectstorage.json"
+source = "https://docs.oracle.com/en-us/iaas/api/specs/c69b18d689f4a8981c8e382754fcdec5e5724348bd146172f4c0d20fe94f0a0d.yaml (verified against, not vendored)"
+format = "openapi"
+ref = "UNPINNED"
+license = "Oracle Corporation (proprietary; not redistributable)"
+status = "excerpt"
+
+[[spec]]
+path = "specs/ibm/api/resourcecontroller.json"
+source = "https://cloud.ibm.com/docs/apis/resource-controller (verified against, no OpenAPI published)"
+format = "openapi"
+ref = "UNPINNED"
+license = "IBM docs terms (not redistributable)"
+status = "excerpt"
+
+[[spec]]
+path = "specs/ibm/api/iamidentity.json"
+source = "https://cloud.ibm.com/docs/apis/iam-identity-token-api (verified against, no OpenAPI published)"
+format = "openapi"
+ref = "UNPINNED"
+license = "IBM docs terms (not redistributable)"
+status = "excerpt"
+
+[[catalog]]
+paths = [
+    "specs/aws/iam/secretsmanager.json",
+    "specs/azure/iam/resources.json",
+    "specs/gcp/iam/secretmanager.json",
+    "specs/oci/iam/objectstorage.json",
+    "specs/ibm/iam/resourcecontroller.json",
+]
+ref = "UNPINNED"
+status = "excerpt"
