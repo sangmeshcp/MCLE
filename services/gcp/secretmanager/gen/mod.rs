@@ -14,18 +14,269 @@ pub static MANIFEST: ServiceManifest = ServiceManifest {
 
 pub mod op {
     use mcle_sdk::OpId;
-    pub const PROJECTS_SECRETS_ADD_VERSION: OpId = OpId(0);
-    pub const PROJECTS_SECRETS_CREATE: OpId = OpId(1);
-    pub const PROJECTS_SECRETS_DELETE: OpId = OpId(2);
-    pub const PROJECTS_SECRETS_GET: OpId = OpId(3);
-    pub const PROJECTS_SECRETS_LIST: OpId = OpId(4);
-    pub const PROJECTS_SECRETS_PATCH: OpId = OpId(5);
-    pub const PROJECTS_SECRETS_VERSIONS_ACCESS: OpId = OpId(6);
-    pub const PROJECTS_SECRETS_VERSIONS_GET: OpId = OpId(7);
-    pub const PROJECTS_SECRETS_VERSIONS_LIST: OpId = OpId(8);
+    pub const PROJECTS_LOCATIONS_GET: OpId = OpId(0);
+    pub const PROJECTS_LOCATIONS_LIST: OpId = OpId(1);
+    pub const PROJECTS_LOCATIONS_SECRETS_ADD_VERSION: OpId = OpId(2);
+    pub const PROJECTS_LOCATIONS_SECRETS_CREATE: OpId = OpId(3);
+    pub const PROJECTS_LOCATIONS_SECRETS_DELETE: OpId = OpId(4);
+    pub const PROJECTS_LOCATIONS_SECRETS_ENABLE_MANAGED_ROTATION: OpId = OpId(5);
+    pub const PROJECTS_LOCATIONS_SECRETS_GET: OpId = OpId(6);
+    pub const PROJECTS_LOCATIONS_SECRETS_GET_IAM_POLICY: OpId = OpId(7);
+    pub const PROJECTS_LOCATIONS_SECRETS_LIST: OpId = OpId(8);
+    pub const PROJECTS_LOCATIONS_SECRETS_PATCH: OpId = OpId(9);
+    pub const PROJECTS_LOCATIONS_SECRETS_ROTATE_SECRET: OpId = OpId(10);
+    pub const PROJECTS_LOCATIONS_SECRETS_SET_IAM_POLICY: OpId = OpId(11);
+    pub const PROJECTS_LOCATIONS_SECRETS_TEST_IAM_PERMISSIONS: OpId = OpId(12);
+    pub const PROJECTS_LOCATIONS_SECRETS_VERSIONS_ACCESS: OpId = OpId(13);
+    pub const PROJECTS_LOCATIONS_SECRETS_VERSIONS_DESTROY: OpId = OpId(14);
+    pub const PROJECTS_LOCATIONS_SECRETS_VERSIONS_DISABLE: OpId = OpId(15);
+    pub const PROJECTS_LOCATIONS_SECRETS_VERSIONS_ENABLE: OpId = OpId(16);
+    pub const PROJECTS_LOCATIONS_SECRETS_VERSIONS_GET: OpId = OpId(17);
+    pub const PROJECTS_LOCATIONS_SECRETS_VERSIONS_LIST: OpId = OpId(18);
+    pub const PROJECTS_SECRETS_ADD_VERSION: OpId = OpId(19);
+    pub const PROJECTS_SECRETS_CREATE: OpId = OpId(20);
+    pub const PROJECTS_SECRETS_DELETE: OpId = OpId(21);
+    pub const PROJECTS_SECRETS_ENABLE_MANAGED_ROTATION: OpId = OpId(22);
+    pub const PROJECTS_SECRETS_GET: OpId = OpId(23);
+    pub const PROJECTS_SECRETS_GET_IAM_POLICY: OpId = OpId(24);
+    pub const PROJECTS_SECRETS_LIST: OpId = OpId(25);
+    pub const PROJECTS_SECRETS_PATCH: OpId = OpId(26);
+    pub const PROJECTS_SECRETS_ROTATE_SECRET: OpId = OpId(27);
+    pub const PROJECTS_SECRETS_SET_IAM_POLICY: OpId = OpId(28);
+    pub const PROJECTS_SECRETS_TEST_IAM_PERMISSIONS: OpId = OpId(29);
+    pub const PROJECTS_SECRETS_VERSIONS_ACCESS: OpId = OpId(30);
+    pub const PROJECTS_SECRETS_VERSIONS_DESTROY: OpId = OpId(31);
+    pub const PROJECTS_SECRETS_VERSIONS_DISABLE: OpId = OpId(32);
+    pub const PROJECTS_SECRETS_VERSIONS_ENABLE: OpId = OpId(33);
+    pub const PROJECTS_SECRETS_VERSIONS_GET: OpId = OpId(34);
+    pub const PROJECTS_SECRETS_VERSIONS_LIST: OpId = OpId(35);
 }
 
-pub static OPS: [OpMeta; 9] = [
+pub static OPS: [OpMeta; 36] = [
+    OpMeta {
+        name: "projects.locations.get",
+        iam_action: IamAction("secretmanager.get"),
+        resource: ResourceExtractor::PathParam("locationsId"),
+        level: FidelityLevel::L0,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::Natural,
+        plane: Plane::Control,
+        crud: None,
+    },
+    OpMeta {
+        name: "projects.locations.list",
+        iam_action: IamAction("secretmanager.list"),
+        resource: ResourceExtractor::PathParam("projectsId"),
+        level: FidelityLevel::L0,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::Natural,
+        plane: Plane::Control,
+        crud: None,
+    },
+    OpMeta {
+        name: "projects.locations.secrets.addVersion",
+        iam_action: IamAction("secretmanager.secrets.addVersion"),
+        resource: ResourceExtractor::PathParam("secretsId"),
+        level: FidelityLevel::L0,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::None,
+        plane: Plane::Data,
+        crud: None,
+    },
+    OpMeta {
+        name: "projects.locations.secrets.create",
+        iam_action: IamAction("secretmanager.secrets.create"),
+        resource: ResourceExtractor::Scope,
+        level: FidelityLevel::L1,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::None,
+        plane: Plane::Control,
+        crud: Some(CrudBinding {
+            resource: "location_secret",
+            verb: CrudVerb::Create,
+        }),
+    },
+    OpMeta {
+        name: "projects.locations.secrets.delete",
+        iam_action: IamAction("secretmanager.secrets.delete"),
+        resource: ResourceExtractor::PathParam("secretsId"),
+        level: FidelityLevel::L1,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::Natural,
+        plane: Plane::Control,
+        crud: Some(CrudBinding {
+            resource: "location_secret",
+            verb: CrudVerb::Delete,
+        }),
+    },
+    OpMeta {
+        name: "projects.locations.secrets.enableManagedRotation",
+        iam_action: IamAction("secretmanager.secrets.enableManagedRotation"),
+        resource: ResourceExtractor::PathParam("secretsId"),
+        level: FidelityLevel::L0,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::None,
+        plane: Plane::Control,
+        crud: None,
+    },
+    OpMeta {
+        name: "projects.locations.secrets.get",
+        iam_action: IamAction("secretmanager.secrets.get"),
+        resource: ResourceExtractor::PathParam("secretsId"),
+        level: FidelityLevel::L1,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::Natural,
+        plane: Plane::Control,
+        crud: Some(CrudBinding {
+            resource: "location_secret",
+            verb: CrudVerb::Read,
+        }),
+    },
+    OpMeta {
+        name: "projects.locations.secrets.getIamPolicy",
+        iam_action: IamAction("secretmanager.secrets.getIamPolicy"),
+        resource: ResourceExtractor::PathParam("secretsId"),
+        level: FidelityLevel::L0,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::Natural,
+        plane: Plane::Control,
+        crud: None,
+    },
+    OpMeta {
+        name: "projects.locations.secrets.list",
+        iam_action: IamAction("secretmanager.secrets.list"),
+        resource: ResourceExtractor::Scope,
+        level: FidelityLevel::L1,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::Natural,
+        plane: Plane::Control,
+        crud: Some(CrudBinding {
+            resource: "location_secret",
+            verb: CrudVerb::List,
+        }),
+    },
+    OpMeta {
+        name: "projects.locations.secrets.patch",
+        iam_action: IamAction("secretmanager.secrets.update"),
+        resource: ResourceExtractor::PathParam("secretsId"),
+        level: FidelityLevel::L1,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::None,
+        plane: Plane::Control,
+        crud: Some(CrudBinding {
+            resource: "location_secret",
+            verb: CrudVerb::Update,
+        }),
+    },
+    OpMeta {
+        name: "projects.locations.secrets.rotateSecret",
+        iam_action: IamAction("secretmanager.secrets.rotateSecret"),
+        resource: ResourceExtractor::PathParam("secretsId"),
+        level: FidelityLevel::L0,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::None,
+        plane: Plane::Control,
+        crud: None,
+    },
+    OpMeta {
+        name: "projects.locations.secrets.setIamPolicy",
+        iam_action: IamAction("secretmanager.secrets.setIamPolicy"),
+        resource: ResourceExtractor::PathParam("secretsId"),
+        level: FidelityLevel::L0,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::None,
+        plane: Plane::Control,
+        crud: None,
+    },
+    OpMeta {
+        name: "projects.locations.secrets.testIamPermissions",
+        iam_action: IamAction("secretmanager.secrets.testIamPermissions"),
+        resource: ResourceExtractor::PathParam("secretsId"),
+        level: FidelityLevel::L0,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::None,
+        plane: Plane::Control,
+        crud: None,
+    },
+    OpMeta {
+        name: "projects.locations.secrets.versions.access",
+        iam_action: IamAction("secretmanager.versions.access"),
+        resource: ResourceExtractor::PathParam("versionsId"),
+        level: FidelityLevel::L0,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::Natural,
+        plane: Plane::Data,
+        crud: None,
+    },
+    OpMeta {
+        name: "projects.locations.secrets.versions.destroy",
+        iam_action: IamAction("secretmanager.versions.destroy"),
+        resource: ResourceExtractor::PathParam("versionsId"),
+        level: FidelityLevel::L0,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::None,
+        plane: Plane::Control,
+        crud: None,
+    },
+    OpMeta {
+        name: "projects.locations.secrets.versions.disable",
+        iam_action: IamAction("secretmanager.versions.disable"),
+        resource: ResourceExtractor::PathParam("versionsId"),
+        level: FidelityLevel::L0,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::None,
+        plane: Plane::Control,
+        crud: None,
+    },
+    OpMeta {
+        name: "projects.locations.secrets.versions.enable",
+        iam_action: IamAction("secretmanager.versions.enable"),
+        resource: ResourceExtractor::PathParam("versionsId"),
+        level: FidelityLevel::L0,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::None,
+        plane: Plane::Control,
+        crud: None,
+    },
+    OpMeta {
+        name: "projects.locations.secrets.versions.get",
+        iam_action: IamAction("secretmanager.versions.get"),
+        resource: ResourceExtractor::PathParam("versionsId"),
+        level: FidelityLevel::L0,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::Natural,
+        plane: Plane::Control,
+        crud: None,
+    },
+    OpMeta {
+        name: "projects.locations.secrets.versions.list",
+        iam_action: IamAction("secretmanager.versions.list"),
+        resource: ResourceExtractor::PathParam("secretsId"),
+        level: FidelityLevel::L0,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::Natural,
+        plane: Plane::Control,
+        crud: None,
+    },
     OpMeta {
         name: "projects.secrets.addVersion",
         iam_action: IamAction("secretmanager.versions.add"),
@@ -66,6 +317,17 @@ pub static OPS: [OpMeta; 9] = [
         }),
     },
     OpMeta {
+        name: "projects.secrets.enableManagedRotation",
+        iam_action: IamAction("secretmanager.secrets.enableManagedRotation"),
+        resource: ResourceExtractor::PathParam("secretsId"),
+        level: FidelityLevel::L0,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::None,
+        plane: Plane::Control,
+        crud: None,
+    },
+    OpMeta {
         name: "projects.secrets.get",
         iam_action: IamAction("secretmanager.secrets.get"),
         resource: ResourceExtractor::PathParam("secretsId"),
@@ -78,6 +340,17 @@ pub static OPS: [OpMeta; 9] = [
             resource: "secret",
             verb: CrudVerb::Read,
         }),
+    },
+    OpMeta {
+        name: "projects.secrets.getIamPolicy",
+        iam_action: IamAction("secretmanager.secrets.getIamPolicy"),
+        resource: ResourceExtractor::PathParam("secretsId"),
+        level: FidelityLevel::L0,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::Natural,
+        plane: Plane::Control,
+        crud: None,
     },
     OpMeta {
         name: "projects.secrets.list",
@@ -108,6 +381,39 @@ pub static OPS: [OpMeta; 9] = [
         }),
     },
     OpMeta {
+        name: "projects.secrets.rotateSecret",
+        iam_action: IamAction("secretmanager.secrets.rotateSecret"),
+        resource: ResourceExtractor::PathParam("secretsId"),
+        level: FidelityLevel::L0,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::None,
+        plane: Plane::Control,
+        crud: None,
+    },
+    OpMeta {
+        name: "projects.secrets.setIamPolicy",
+        iam_action: IamAction("secretmanager.secrets.setIamPolicy"),
+        resource: ResourceExtractor::PathParam("secretsId"),
+        level: FidelityLevel::L0,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::None,
+        plane: Plane::Control,
+        crud: None,
+    },
+    OpMeta {
+        name: "projects.secrets.testIamPermissions",
+        iam_action: IamAction("secretmanager.secrets.testIamPermissions"),
+        resource: ResourceExtractor::PathParam("secretsId"),
+        level: FidelityLevel::L0,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::None,
+        plane: Plane::Control,
+        crud: None,
+    },
+    OpMeta {
         name: "projects.secrets.versions.access",
         iam_action: IamAction("secretmanager.versions.access"),
         resource: ResourceExtractor::PathParam("versionsId"),
@@ -116,6 +422,39 @@ pub static OPS: [OpMeta; 9] = [
         emits: &[],
         idempotency: Idempotency::Natural,
         plane: Plane::Data,
+        crud: None,
+    },
+    OpMeta {
+        name: "projects.secrets.versions.destroy",
+        iam_action: IamAction("secretmanager.versions.destroy"),
+        resource: ResourceExtractor::PathParam("versionsId"),
+        level: FidelityLevel::L0,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::None,
+        plane: Plane::Control,
+        crud: None,
+    },
+    OpMeta {
+        name: "projects.secrets.versions.disable",
+        iam_action: IamAction("secretmanager.versions.disable"),
+        resource: ResourceExtractor::PathParam("versionsId"),
+        level: FidelityLevel::L0,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::None,
+        plane: Plane::Control,
+        crud: None,
+    },
+    OpMeta {
+        name: "projects.secrets.versions.enable",
+        iam_action: IamAction("secretmanager.versions.enable"),
+        resource: ResourceExtractor::PathParam("versionsId"),
+        level: FidelityLevel::L0,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::None,
+        plane: Plane::Control,
         crud: None,
     },
     OpMeta {
@@ -142,94 +481,73 @@ pub static OPS: [OpMeta; 9] = [
     },
 ];
 
-pub static ROUTES: RouteTable = RouteTable {
-    case_insensitive: false,
-    routes: &[
-        Route {
-            op: OpId(0),
-            matcher: RouteMatch::Rest {
-                method: "POST",
-                path: "/v1/projects/{projectsId}/secrets/{secretsId}:addVersion",
-                query: &[],
-            },
-        },
-        Route {
-            op: OpId(1),
-            matcher: RouteMatch::Rest {
-                method: "POST",
-                path: "/v1/projects/{projectsId}/secrets",
-                query: &[],
-            },
-        },
-        Route {
-            op: OpId(2),
-            matcher: RouteMatch::Rest {
-                method: "DELETE",
-                path: "/v1/projects/{projectsId}/secrets/{secretsId}",
-                query: &[],
-            },
-        },
-        Route {
-            op: OpId(3),
-            matcher: RouteMatch::Rest {
-                method: "GET",
-                path: "/v1/projects/{projectsId}/secrets/{secretsId}",
-                query: &[],
-            },
-        },
-        Route {
-            op: OpId(4),
-            matcher: RouteMatch::Rest {
-                method: "GET",
-                path: "/v1/projects/{projectsId}/secrets",
-                query: &[],
-            },
-        },
-        Route {
-            op: OpId(5),
-            matcher: RouteMatch::Rest {
-                method: "PATCH",
-                path: "/v1/projects/{projectsId}/secrets/{secretsId}",
-                query: &[],
-            },
-        },
-        Route {
-            op: OpId(6),
-            matcher: RouteMatch::Rest {
-                method: "GET",
-                path: "/v1/projects/{projectsId}/secrets/{secretsId}/versions/{versionsId}:access",
-                query: &[],
-            },
-        },
-        Route {
-            op: OpId(7),
-            matcher: RouteMatch::Rest {
-                method: "GET",
-                path: "/v1/projects/{projectsId}/secrets/{secretsId}/versions/{versionsId}",
-                query: &[],
-            },
-        },
-        Route {
-            op: OpId(8),
-            matcher: RouteMatch::Rest {
-                method: "GET",
-                path: "/v1/projects/{projectsId}/secrets/{secretsId}/versions",
-                query: &[],
-            },
-        },
-    ],
-};
+pub static ROUTES: RouteTable = RouteTable { case_insensitive: false, routes: &[
+    Route { op: OpId(0), matcher: RouteMatch::Rest { method: "GET", path: "/v1/projects/{projectsId}/locations/{locationsId}", query: &[] } },
+    Route { op: OpId(1), matcher: RouteMatch::Rest { method: "GET", path: "/v1/projects/{projectsId}/locations", query: &[] } },
+    Route { op: OpId(2), matcher: RouteMatch::Rest { method: "POST", path: "/v1/projects/{projectsId}/locations/{locationsId}/secrets/{secretsId}:addVersion", query: &[] } },
+    Route { op: OpId(3), matcher: RouteMatch::Rest { method: "POST", path: "/v1/projects/{projectsId}/locations/{locationsId}/secrets", query: &[] } },
+    Route { op: OpId(4), matcher: RouteMatch::Rest { method: "DELETE", path: "/v1/projects/{projectsId}/locations/{locationsId}/secrets/{secretsId}", query: &[] } },
+    Route { op: OpId(5), matcher: RouteMatch::Rest { method: "POST", path: "/v1/projects/{projectsId}/locations/{locationsId}/secrets/{secretsId}:enableManagedRotation", query: &[] } },
+    Route { op: OpId(6), matcher: RouteMatch::Rest { method: "GET", path: "/v1/projects/{projectsId}/locations/{locationsId}/secrets/{secretsId}", query: &[] } },
+    Route { op: OpId(7), matcher: RouteMatch::Rest { method: "GET", path: "/v1/projects/{projectsId}/locations/{locationsId}/secrets/{secretsId}:getIamPolicy", query: &[] } },
+    Route { op: OpId(8), matcher: RouteMatch::Rest { method: "GET", path: "/v1/projects/{projectsId}/locations/{locationsId}/secrets", query: &[] } },
+    Route { op: OpId(9), matcher: RouteMatch::Rest { method: "PATCH", path: "/v1/projects/{projectsId}/locations/{locationsId}/secrets/{secretsId}", query: &[] } },
+    Route { op: OpId(10), matcher: RouteMatch::Rest { method: "POST", path: "/v1/projects/{projectsId}/locations/{locationsId}/secrets/{secretsId}:rotateSecret", query: &[] } },
+    Route { op: OpId(11), matcher: RouteMatch::Rest { method: "POST", path: "/v1/projects/{projectsId}/locations/{locationsId}/secrets/{secretsId}:setIamPolicy", query: &[] } },
+    Route { op: OpId(12), matcher: RouteMatch::Rest { method: "POST", path: "/v1/projects/{projectsId}/locations/{locationsId}/secrets/{secretsId}:testIamPermissions", query: &[] } },
+    Route { op: OpId(13), matcher: RouteMatch::Rest { method: "GET", path: "/v1/projects/{projectsId}/locations/{locationsId}/secrets/{secretsId}/versions/{versionsId}:access", query: &[] } },
+    Route { op: OpId(14), matcher: RouteMatch::Rest { method: "POST", path: "/v1/projects/{projectsId}/locations/{locationsId}/secrets/{secretsId}/versions/{versionsId}:destroy", query: &[] } },
+    Route { op: OpId(15), matcher: RouteMatch::Rest { method: "POST", path: "/v1/projects/{projectsId}/locations/{locationsId}/secrets/{secretsId}/versions/{versionsId}:disable", query: &[] } },
+    Route { op: OpId(16), matcher: RouteMatch::Rest { method: "POST", path: "/v1/projects/{projectsId}/locations/{locationsId}/secrets/{secretsId}/versions/{versionsId}:enable", query: &[] } },
+    Route { op: OpId(17), matcher: RouteMatch::Rest { method: "GET", path: "/v1/projects/{projectsId}/locations/{locationsId}/secrets/{secretsId}/versions/{versionsId}", query: &[] } },
+    Route { op: OpId(18), matcher: RouteMatch::Rest { method: "GET", path: "/v1/projects/{projectsId}/locations/{locationsId}/secrets/{secretsId}/versions", query: &[] } },
+    Route { op: OpId(19), matcher: RouteMatch::Rest { method: "POST", path: "/v1/projects/{projectsId}/secrets/{secretsId}:addVersion", query: &[] } },
+    Route { op: OpId(20), matcher: RouteMatch::Rest { method: "POST", path: "/v1/projects/{projectsId}/secrets", query: &[] } },
+    Route { op: OpId(21), matcher: RouteMatch::Rest { method: "DELETE", path: "/v1/projects/{projectsId}/secrets/{secretsId}", query: &[] } },
+    Route { op: OpId(22), matcher: RouteMatch::Rest { method: "POST", path: "/v1/projects/{projectsId}/secrets/{secretsId}:enableManagedRotation", query: &[] } },
+    Route { op: OpId(23), matcher: RouteMatch::Rest { method: "GET", path: "/v1/projects/{projectsId}/secrets/{secretsId}", query: &[] } },
+    Route { op: OpId(24), matcher: RouteMatch::Rest { method: "GET", path: "/v1/projects/{projectsId}/secrets/{secretsId}:getIamPolicy", query: &[] } },
+    Route { op: OpId(25), matcher: RouteMatch::Rest { method: "GET", path: "/v1/projects/{projectsId}/secrets", query: &[] } },
+    Route { op: OpId(26), matcher: RouteMatch::Rest { method: "PATCH", path: "/v1/projects/{projectsId}/secrets/{secretsId}", query: &[] } },
+    Route { op: OpId(27), matcher: RouteMatch::Rest { method: "POST", path: "/v1/projects/{projectsId}/secrets/{secretsId}:rotateSecret", query: &[] } },
+    Route { op: OpId(28), matcher: RouteMatch::Rest { method: "POST", path: "/v1/projects/{projectsId}/secrets/{secretsId}:setIamPolicy", query: &[] } },
+    Route { op: OpId(29), matcher: RouteMatch::Rest { method: "POST", path: "/v1/projects/{projectsId}/secrets/{secretsId}:testIamPermissions", query: &[] } },
+    Route { op: OpId(30), matcher: RouteMatch::Rest { method: "GET", path: "/v1/projects/{projectsId}/secrets/{secretsId}/versions/{versionsId}:access", query: &[] } },
+    Route { op: OpId(31), matcher: RouteMatch::Rest { method: "POST", path: "/v1/projects/{projectsId}/secrets/{secretsId}/versions/{versionsId}:destroy", query: &[] } },
+    Route { op: OpId(32), matcher: RouteMatch::Rest { method: "POST", path: "/v1/projects/{projectsId}/secrets/{secretsId}/versions/{versionsId}:disable", query: &[] } },
+    Route { op: OpId(33), matcher: RouteMatch::Rest { method: "POST", path: "/v1/projects/{projectsId}/secrets/{secretsId}/versions/{versionsId}:enable", query: &[] } },
+    Route { op: OpId(34), matcher: RouteMatch::Rest { method: "GET", path: "/v1/projects/{projectsId}/secrets/{secretsId}/versions/{versionsId}", query: &[] } },
+    Route { op: OpId(35), matcher: RouteMatch::Rest { method: "GET", path: "/v1/projects/{projectsId}/secrets/{secretsId}/versions", query: &[] } },
+] };
 
-pub static CRUD_RESOURCES: [CrudResource; 1] = [CrudResource {
-    type_name: "secret",
-    hints: &[
-        ("collection", "secrets"),
-        ("create_time", "createTime"),
-        ("etag", "true"),
-        ("id_param", "secretsId"),
-        ("id_query", "secretId"),
-        ("list_field", "secrets"),
-        ("parent_template", "projects/{projectsId}"),
-        ("total_size", "true"),
-    ],
-}];
+pub static CRUD_RESOURCES: [CrudResource; 2] = [
+    CrudResource {
+        type_name: "location_secret",
+        hints: &[
+            ("collection", "secrets"),
+            ("create_time", "createTime"),
+            ("etag", "true"),
+            ("id_param", "secretsId"),
+            ("id_query", "secretId"),
+            ("list_field", "secrets"),
+            (
+                "parent_template",
+                "projects/{projectsId}/locations/{locationsId}",
+            ),
+            ("total_size", "true"),
+        ],
+    },
+    CrudResource {
+        type_name: "secret",
+        hints: &[
+            ("collection", "secrets"),
+            ("create_time", "createTime"),
+            ("etag", "true"),
+            ("id_param", "secretsId"),
+            ("id_query", "secretId"),
+            ("list_field", "secrets"),
+            ("parent_template", "projects/{projectsId}"),
+            ("total_size", "true"),
+        ],
+    },
+];

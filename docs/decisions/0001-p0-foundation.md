@@ -20,8 +20,7 @@ Date: 2026-11-25 · Status: accepted
 - **Pipeline**: implemented as an ordered list of `PipelineLayer`s around dispatch rather than
   `tower` layers. Same extension contract; can move to `tower` without SDK changes.
 - **TLS, gRPC**: not in P0. Gateway is HTTP/1.1 + h2c only.
-- **Specs**: hand-trimmed excerpts matching upstream names and paths (`specs/specs.lock`,
-  `status = excerpt`). Vendoring pinned upstream files is pending a licence check per source.
+- **Specs**: superseded by 0003 — AWS, Azure and GCP specs are now vendored; OCI and IBM remain excerpts.
 - **IAM**: framework, modes, explain log and catalogs are in place; evaluators are allow-all
   until WS-IAM. `enforce` therefore never denies yet.
 - **Persistence**: JSON snapshot files (`mcle-state/v1`); `redb` decision still open (§22.7).

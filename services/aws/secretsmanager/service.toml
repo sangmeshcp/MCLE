@@ -8,7 +8,7 @@ owners = ["@mcle/aws"]
 facade = "generic"
 
 [service.api]
-source = "aws/api-models-aws"
+source = "aws/api-models-aws@d504436b2739873d202b10a26bdecb620fa1e4f0"
 format = "smithy"
 spec = "specs/aws/api/secretsmanager.json"
 version = "2017-10-17"

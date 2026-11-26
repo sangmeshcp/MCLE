@@ -10,9 +10,9 @@ A ✔ means the declared level is backed by a test marker (`verifies(Lx): ...`).
 
 | cloud | service | tier | facade | ops | L0 | L1 | L2 | L3 | test-backed |
 |---|---|---|---|---|---|---|---|---|---|
-| aws | [Secrets Manager](#aws-secretsmanager) | T0 | generic | 10 | 5 | 5 | 0 | 0 | 10/10 |
-| azure | [Resource Manager (generic ARM)](#azure-arm) | T0 | custom | 19 | 0 | 19 | 0 | 0 | 19/19 |
-| gcp | [Secret Manager](#gcp-secretmanager) | T0 | generic | 9 | 4 | 5 | 0 | 0 | 9/9 |
+| aws | [Secrets Manager](#aws-secretsmanager) | T0 | generic | 26 | 21 | 5 | 0 | 0 | 26/26 |
+| azure | [Resource Manager (generic ARM)](#azure-arm) | T0 | custom | 47 | 28 | 19 | 0 | 0 | 47/47 |
+| gcp | [Secret Manager](#gcp-secretmanager) | T0 | generic | 36 | 26 | 10 | 0 | 0 | 36/36 |
 | ibm | [IAM Identity (token endpoint)](#ibm-iamidentity) | T0 | custom | 1 | 0 | 0 | 1 | 0 | 1/1 |
 | ibm | [Resource Controller](#ibm-resourcecontroller) | T0 | generic | 7 | 2 | 5 | 0 | 0 | 7/7 |
 | oci | [Object Storage](#oci-objectstorage) | T0 | custom | 10 | 4 | 6 | 0 | 0 | 10/10 |
@@ -27,60 +27,131 @@ A ✔ means the declared level is backed by a test marker (`verifies(Lx): ...`).
 
 ### aws-secretsmanager
 
-Secrets Manager — `mcle-svc-aws-secretsmanager` — spec `specs/aws/api/secretsmanager.json` (smithy, aws/api-models-aws @ 2017-10-17), protocol `awsJson1_1`
+Secrets Manager — `mcle-svc-aws-secretsmanager` — spec `specs/aws/api/secretsmanager.json` (smithy, aws/api-models-aws@d504436b2739873d202b10a26bdecb620fa1e4f0 @ 2017-10-17), protocol `awsJson1_1`
 
 | op | level | ✔ | IAM action | CRUD | LRO | plane |
 |---|---|---|---|---|---|---|
+| `AssociateCrossAccountReplica` | L0 | — | `secretsmanager:AssociateCrossAccountReplica` | — | none | control |
+| `BatchGetSecretValue` | L0 | — | `secretsmanager:BatchGetSecretValue` | — | none | control |
+| `CancelRotateSecret` | L0 | — | `secretsmanager:CancelRotateSecret` | — | none | control |
 | `CreateSecret` | L1 | ✔ | `secretsmanager:CreateSecret` | secret:Create | none | control |
+| `DeleteResourcePolicy` | L0 | — | `secretsmanager:DeleteResourcePolicy` | — | none | control |
 | `DeleteSecret` | L1 | ✔ | `secretsmanager:DeleteSecret` | secret:Delete | none | control |
 | `DescribeSecret` | L1 | ✔ | `secretsmanager:DescribeSecret` | secret:Read | none | control |
+| `DisassociateCrossAccountReplica` | L0 | — | `secretsmanager:DisassociateCrossAccountReplica` | — | none | control |
+| `GetRandomPassword` | L0 | — | `secretsmanager:GetRandomPassword` | — | none | control |
+| `GetResourcePolicy` | L0 | — | `secretsmanager:GetResourcePolicy` | — | none | control |
 | `GetSecretValue` | L0 | — | `secretsmanager:GetSecretValue` | — | none | data |
+| `ListResourcePolicies` | L0 | — | `secretsmanager:ListResourcePolicies` | — | none | control |
+| `ListSecretVersionIds` | L0 | — | `secretsmanager:ListSecretVersionIds` | — | none | control |
 | `ListSecrets` | L1 | ✔ | `secretsmanager:ListSecrets` | secret:List | none | control |
+| `PutResourcePolicy` | L0 | — | `secretsmanager:PutResourcePolicy` | — | none | control |
 | `PutSecretValue` | L0 | — | `secretsmanager:PutSecretValue` | — | none | data |
+| `RemoveRegionsFromReplication` | L0 | — | `secretsmanager:RemoveRegionsFromReplication` | — | none | control |
+| `ReplicateSecretToRegions` | L0 | — | `secretsmanager:ReplicateSecretToRegions` | — | none | control |
 | `RestoreSecret` | L0 | — | `secretsmanager:RestoreSecret` | — | none | control |
+| `RotateSecret` | L0 | — | `secretsmanager:RotateSecret` | — | none | control |
+| `StopReplicationToReplica` | L0 | — | `secretsmanager:StopReplicationToReplica` | — | none | control |
 | `TagResource` | L0 | — | `secretsmanager:TagResource` | — | none | control |
 | `UntagResource` | L0 | — | `secretsmanager:UntagResource` | — | none | control |
 | `UpdateSecret` | L1 | ✔ | `secretsmanager:UpdateSecret` | secret:Update | none | control |
+| `UpdateSecretVersionStage` | L0 | — | `secretsmanager:UpdateSecretVersionStage` | — | none | control |
+| `ValidateResourcePolicy` | L0 | — | `secretsmanager:ValidateResourcePolicy` | — | none | control |
 
 ### azure-arm
 
-Resource Manager (generic ARM) — `mcle-svc-azure-arm` — spec `specs/azure/api/resources.json` (openapi, Azure/azure-rest-api-specs (Microsoft.Resources 2021-04-01) @ 2021-04-01), protocol `arm`
+Resource Manager (generic ARM) — `mcle-svc-azure-arm` — spec `specs/azure/api/resources.json` (openapi, Azure/azure-rest-api-specs@a4cb6169f575877aabf70fd232d610d118b938e9 (Microsoft.Resources) @ 2021-04-01), protocol `arm`
 
 | op | level | ✔ | IAM action | CRUD | LRO | plane |
 |---|---|---|---|---|---|---|
+| `Operations_List` | L0 | — | `Microsoft.Resources/operations/read` | — | none | control |
+| `ProviderResourceTypes_List` | L0 | — | `Microsoft.Resources/subscriptions/providers/read` | — | none | control |
 | `Providers_Get` | L1 | ✔ | `Microsoft.Resources/subscriptions/providers/read` | custom | none | control |
+| `Providers_GetAtTenantScope` | L0 | — | `Microsoft.Resources/providers/read` | — | none | control |
 | `Providers_List` | L1 | ✔ | `Microsoft.Resources/subscriptions/providers/read` | custom | none | control |
+| `Providers_ListAtTenantScope` | L0 | — | `Microsoft.Resources/providers/read` | — | none | control |
+| `Providers_ProviderPermissions` | L0 | — | `Microsoft.Resources/subscriptions/providers/read` | — | none | control |
 | `Providers_Register` | L1 | ✔ | `*/register/action` | custom | none | control |
+| `Providers_RegisterAtManagementGroupScope` | L0 | — | `*/register/action` | — | none | control |
+| `Providers_Unregister` | L0 | — | `*/unregister/action` | — | none | control |
 | `ResourceGroups_CheckExistence` | L1 | ✔ | `Microsoft.Resources/subscriptions/resourceGroups/read` | custom | none | control |
 | `ResourceGroups_CreateOrUpdate` | L1 | ✔ | `Microsoft.Resources/subscriptions/resourceGroups/write` | custom | none | control |
 | `ResourceGroups_Delete` | L1 | ✔ | `Microsoft.Resources/subscriptions/resourceGroups/delete` | custom | delete | control |
+| `ResourceGroups_ExportTemplate` | L0 | — | `Microsoft.Resources/subscriptions/resourceGroups/action` | — | action | control |
 | `ResourceGroups_Get` | L1 | ✔ | `Microsoft.Resources/subscriptions/resourceGroups/read` | custom | none | control |
 | `ResourceGroups_List` | L1 | ✔ | `Microsoft.Resources/subscriptions/resourceGroups/read` | custom | none | control |
 | `ResourceGroups_Update` | L1 | ✔ | `Microsoft.Resources/subscriptions/resourceGroups/write` | custom | none | control |
 | `Resources_CheckExistence` | L1 | ✔ | `{resourceType}/read` | custom | none | control |
+| `Resources_CheckExistenceById` | L0 | — | `{resourceType}/read` | — | none | control |
 | `Resources_CreateOrUpdate` | L1 | ✔ | `{resourceType}/write` | custom | create | control |
+| `Resources_CreateOrUpdateById` | L0 | — | `{resourceType}/write` | — | create | control |
 | `Resources_Delete` | L1 | ✔ | `{resourceType}/delete` | custom | delete | control |
+| `Resources_DeleteById` | L0 | — | `{resourceType}/delete` | — | delete | control |
 | `Resources_Get` | L1 | ✔ | `{resourceType}/read` | custom | none | control |
+| `Resources_GetById` | L0 | — | `{resourceType}/read` | — | none | control |
 | `Resources_List` | L1 | ✔ | `Microsoft.Resources/subscriptions/resources/read` | custom | none | control |
 | `Resources_ListByResourceGroup` | L1 | ✔ | `Microsoft.Resources/subscriptions/resourceGroups/resources/read` | custom | none | control |
 | `Resources_ListBySubscriptionAndType` | L1 | ✔ | `{resourceType}/read` | custom | none | control |
+| `Resources_MoveResources` | L0 | — | `Microsoft.Resources/subscriptions/resourceGroups/action` | — | action | control |
 | `Resources_Update` | L1 | ✔ | `{resourceType}/write` | custom | update | control |
+| `Resources_UpdateById` | L0 | — | `{resourceType}/write` | — | update | control |
+| `Resources_ValidateMoveResources` | L0 | — | `Microsoft.Resources/subscriptions/resourceGroups/action` | — | action | control |
+| `Subscriptions_CheckZonePeers` | L0 | — | `Microsoft.Resources/checkZonePeers/action` | — | none | control |
 | `Subscriptions_Get` | L1 | ✔ | `Microsoft.Resources/subscriptions/read` | custom | none | control |
 | `Subscriptions_List` | L1 | ✔ | `Microsoft.Resources/subscriptions/read` | custom | none | control |
+| `Subscriptions_ListLocations` | L0 | — | `Microsoft.Resources/subscriptions/read` | — | none | control |
+| `Tags_CreateOrUpdate` | L0 | — | `Microsoft.Resources/subscriptions/write` | — | none | control |
+| `Tags_CreateOrUpdateAtScope` | L0 | — | `Microsoft.Resources/tags/write` | — | none | control |
+| `Tags_CreateOrUpdateValue` | L0 | — | `Microsoft.Resources/subscriptions/write` | — | none | control |
+| `Tags_Delete` | L0 | — | `Microsoft.Resources/subscriptions/delete` | — | none | control |
+| `Tags_DeleteAtScope` | L0 | — | `Microsoft.Resources/tags/delete` | — | none | control |
+| `Tags_DeleteValue` | L0 | — | `Microsoft.Resources/subscriptions/delete` | — | none | control |
+| `Tags_GetAtScope` | L0 | — | `Microsoft.Resources/tags/read` | — | none | control |
+| `Tags_List` | L0 | — | `Microsoft.Resources/subscriptions/read` | — | none | control |
+| `Tags_UpdateAtScope` | L0 | — | `Microsoft.Resources/tags/write` | — | none | control |
+| `Tenants_List` | L0 | — | `Microsoft.Resources/tenants/read` | — | none | control |
+| `checkResourceName` | L0 | — | `Microsoft.Resources/checkResourceName/action` | — | none | control |
 
 ### gcp-secretmanager
 
-Secret Manager — `mcle-svc-gcp-secretmanager` — spec `specs/gcp/api/secretmanager.v1.json` (discovery, googleapis discovery (secretmanager v1) @ v1), protocol `gcpRest`
+Secret Manager — `mcle-svc-gcp-secretmanager` — spec `specs/gcp/api/secretmanager.v1.json` (discovery, googleapis/google-api-go-client@1be593613920c8bef887e96e1a82e9a97398628c (secretmanager/v1) @ v1), protocol `gcpRest`
 
 | op | level | ✔ | IAM action | CRUD | LRO | plane |
 |---|---|---|---|---|---|---|
+| `projects.locations.get` | L0 | — | `secretmanager.get` | — | none | control |
+| `projects.locations.list` | L0 | — | `secretmanager.list` | — | none | control |
+| `projects.locations.secrets.addVersion` | L0 | — | `secretmanager.secrets.addVersion` | — | none | data |
+| `projects.locations.secrets.create` | L1 | ✔ | `secretmanager.secrets.create` | location_secret:Create | none | control |
+| `projects.locations.secrets.delete` | L1 | ✔ | `secretmanager.secrets.delete` | location_secret:Delete | none | control |
+| `projects.locations.secrets.enableManagedRotation` | L0 | — | `secretmanager.secrets.enableManagedRotation` | — | none | control |
+| `projects.locations.secrets.get` | L1 | ✔ | `secretmanager.secrets.get` | location_secret:Read | none | control |
+| `projects.locations.secrets.getIamPolicy` | L0 | — | `secretmanager.secrets.getIamPolicy` | — | none | control |
+| `projects.locations.secrets.list` | L1 | ✔ | `secretmanager.secrets.list` | location_secret:List | none | control |
+| `projects.locations.secrets.patch` | L1 | ✔ | `secretmanager.secrets.update` | location_secret:Update | none | control |
+| `projects.locations.secrets.rotateSecret` | L0 | — | `secretmanager.secrets.rotateSecret` | — | none | control |
+| `projects.locations.secrets.setIamPolicy` | L0 | — | `secretmanager.secrets.setIamPolicy` | — | none | control |
+| `projects.locations.secrets.testIamPermissions` | L0 | — | `secretmanager.secrets.testIamPermissions` | — | none | control |
+| `projects.locations.secrets.versions.access` | L0 | — | `secretmanager.versions.access` | — | none | data |
+| `projects.locations.secrets.versions.destroy` | L0 | — | `secretmanager.versions.destroy` | — | none | control |
+| `projects.locations.secrets.versions.disable` | L0 | — | `secretmanager.versions.disable` | — | none | control |
+| `projects.locations.secrets.versions.enable` | L0 | — | `secretmanager.versions.enable` | — | none | control |
+| `projects.locations.secrets.versions.get` | L0 | — | `secretmanager.versions.get` | — | none | control |
+| `projects.locations.secrets.versions.list` | L0 | — | `secretmanager.versions.list` | — | none | control |
 | `projects.secrets.addVersion` | L0 | — | `secretmanager.versions.add` | — | none | data |
 | `projects.secrets.create` | L1 | ✔ | `secretmanager.secrets.create` | secret:Create | none | control |
 | `projects.secrets.delete` | L1 | ✔ | `secretmanager.secrets.delete` | secret:Delete | none | control |
+| `projects.secrets.enableManagedRotation` | L0 | — | `secretmanager.secrets.enableManagedRotation` | — | none | control |
 | `projects.secrets.get` | L1 | ✔ | `secretmanager.secrets.get` | secret:Read | none | control |
+| `projects.secrets.getIamPolicy` | L0 | — | `secretmanager.secrets.getIamPolicy` | — | none | control |
 | `projects.secrets.list` | L1 | ✔ | `secretmanager.secrets.list` | secret:List | none | control |
 | `projects.secrets.patch` | L1 | ✔ | `secretmanager.secrets.update` | secret:Update | none | control |
+| `projects.secrets.rotateSecret` | L0 | — | `secretmanager.secrets.rotateSecret` | — | none | control |
+| `projects.secrets.setIamPolicy` | L0 | — | `secretmanager.secrets.setIamPolicy` | — | none | control |
+| `projects.secrets.testIamPermissions` | L0 | — | `secretmanager.secrets.testIamPermissions` | — | none | control |
 | `projects.secrets.versions.access` | L0 | — | `secretmanager.versions.access` | — | none | data |
+| `projects.secrets.versions.destroy` | L0 | — | `secretmanager.versions.destroy` | — | none | control |
+| `projects.secrets.versions.disable` | L0 | — | `secretmanager.versions.disable` | — | none | control |
+| `projects.secrets.versions.enable` | L0 | — | `secretmanager.versions.enable` | — | none | control |
 | `projects.secrets.versions.get` | L0 | — | `secretmanager.versions.get` | — | none | control |
 | `projects.secrets.versions.list` | L0 | — | `secretmanager.versions.list` | — | none | control |
 

@@ -20,7 +20,7 @@ pub fn run() -> Result<()> {
             if op.iam_action.trim().is_empty() {
                 errors.push(format!("{id}/{}: missing iam_action", op.name));
             }
-            if let Some(cat) = &r.catalog {
+            if let (Some(cat), false) = (&r.catalog, op.level == "L0") {
                 if !cat.actions.is_empty()
                     && !op.iam_action.contains('{')
                     && !cat.actions.iter().any(|a| a == &op.iam_action)

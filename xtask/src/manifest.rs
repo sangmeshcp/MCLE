@@ -12,6 +12,17 @@ pub struct ServiceToml {
     pub crud: CrudSection,
     #[serde(default)]
     pub ops: BTreeMap<String, OpOverride>,
+    /// Routes that exist in no upstream spec but are needed for wire parity.
+    #[serde(default)]
+    pub extra_ops: BTreeMap<String, ExtraOp>,
+}
+
+#[derive(Debug, Deserialize, Clone)]
+pub struct ExtraOp {
+    pub method: String,
+    pub path: String,
+    #[serde(default)]
+    pub iam_action: String,
 }
 
 #[derive(Debug, Deserialize, Clone)]
@@ -46,6 +57,9 @@ pub struct ApiSection {
     pub source: String,
     pub format: String,
     pub spec: String,
+    /// More files in the same format, merged into one op list (first name wins).
+    #[serde(default)]
+    pub extra_specs: Vec<String>,
     #[serde(default)]
     pub version: String,
     #[serde(default)]
@@ -78,6 +92,8 @@ pub struct OpOverride {
     pub crud: Option<String>,
     #[serde(default)]
     pub custom: bool,
+    /// Replaces the spec's REST path template for this op.
+    pub path: Option<String>,
 }
 
 #[derive(Debug, Clone)]

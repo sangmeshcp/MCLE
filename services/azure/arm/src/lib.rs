@@ -534,7 +534,12 @@ impl ServiceFacade for Arm {
                     Some(&pp.type_name()),
                 ))
             }
-            _ => self.generic(ctx, op, &input),
+            RESOURCES_CREATE_OR_UPDATE
+            | RESOURCES_GET
+            | RESOURCES_CHECK_EXISTENCE
+            | RESOURCES_UPDATE
+            | RESOURCES_DELETE => self.generic(ctx, op, &input),
+            _ => Err(CloudError::not_implemented(&ctx.service, &ctx.op)),
         }
     }
 }

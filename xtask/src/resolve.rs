@@ -36,12 +36,49 @@ pub struct Catalog {
 
 pub fn load_spec(entry: &ServiceEntry) -> Result<IrService> {
     let api = &entry.toml.service.api;
-    let path = root().join(&api.spec);
-    let text = std::fs::read_to_string(&path)
-        .with_context(|| format!("reading spec {}", path.display()))?;
-    let doc: Value =
-        serde_json::from_str(&text).with_context(|| format!("parsing spec {}", path.display()))?;
-    crate::spec::load(&api.format, &doc, entry.toml.service.protocol.as_deref())
+    let mut merged: Option<IrService> = None;
+    for rel in std::iter::once(&api.spec).chain(api.extra_specs.iter()) {
+        let path = root().join(rel);
+        let text = std::fs::read_to_string(&path)
+            .with_context(|| format!("reading spec {}", path.display()))?;
+        let doc: Value = serde_json::from_str(&text)
+            .with_context(|| format!("parsing spec {}", path.display()))?;
+        let svc = crate::spec::load(&api.format, &doc, entry.toml.service.protocol.as_deref())?;
+        match merged.as_mut() {
+            None => merged = Some(svc),
+            Some(m) => {
+                for op in svc.ops {
+                    if !m.ops.iter().any(|o| o.name == op.name) {
+                        m.ops.push(op);
+                    }
+                }
+            }
+        }
+    }
+    let mut svc = merged.context("no spec files")?;
+    for (name, x) in &entry.toml.extra_ops {
+        if svc.ops.iter().any(|o| &o.name == name) {
+            bail!(
+                "{}: extra_ops.{name} duplicates a spec operation",
+                entry.dir.display()
+            );
+        }
+        svc.ops.push(crate::ir::IrOp {
+            name: name.clone(),
+            matcher: Matcher::Rest {
+                method: x.method.to_ascii_uppercase(),
+                path: x.path.clone(),
+                query: vec![],
+            },
+            iam_action: x.iam_action.clone(),
+            crud_guess: crate::ir::guess_crud(name),
+            lro: "none".into(),
+            last_path_param: crate::ir::last_path_param(&x.path),
+            idempotency: "none".into(),
+        });
+    }
+    svc.ops.sort_by(|a, b| a.name.cmp(&b.name));
+    Ok(svc)
 }
 
 fn load_catalog(entry: &ServiceEntry) -> Result<Option<Catalog>> {
@@ -164,9 +201,18 @@ pub fn resolve(entry: &ServiceEntry) -> Result<Resolved> {
                 }
             }
         };
+        let matcher = match (&o.matcher, &ov.path) {
+            (Matcher::Rest { method, query, .. }, Some(p)) => Matcher::Rest {
+                method: method.clone(),
+                path: p.clone(),
+                query: query.clone(),
+            },
+            (_, Some(_)) => bail!("{}: path override on non-REST op", o.name),
+            (m, None) => m.clone(),
+        };
         ops.push(ResolvedOp {
             name: o.name.clone(),
-            matcher: o.matcher.clone(),
+            matcher,
             iam_action,
             resource,
             level,

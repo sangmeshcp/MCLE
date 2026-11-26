@@ -1,5 +1,5 @@
 {
-  "source": "Azure resource provider operations — Microsoft.Resources (excerpt)",
+  "source": "Azure resource provider operations \u2014 Microsoft.Resources (excerpt)",
   "status": "excerpt [VERIFY against `az provider operation show --namespace Microsoft.Resources`]",
   "actions": [
     "Microsoft.Resources/subscriptions/read",
@@ -9,7 +9,10 @@
     "Microsoft.Resources/subscriptions/resourceGroups/delete",
     "Microsoft.Resources/subscriptions/resourceGroups/resources/read",
     "Microsoft.Resources/subscriptions/resources/read",
-    "*/register/action"
+    "*/register/action",
+    "Microsoft.Resources/providers/read",
+    "*/unregister/action",
+    "Microsoft.Resources/tenants/read"
   ],
   "operations": {
     "Providers_List": "Microsoft.Resources/subscriptions/providers/read",
@@ -22,6 +25,18 @@
     "Resources_CheckExistence": "{resourceType}/read",
     "Resources_Update": "{resourceType}/write",
     "Resources_Delete": "{resourceType}/delete",
-    "Resources_ListBySubscriptionAndType": "{resourceType}/read"
+    "Resources_ListBySubscriptionAndType": "{resourceType}/read",
+    "ProviderResourceTypes_List": "Microsoft.Resources/subscriptions/providers/read",
+    "Providers_GetAtTenantScope": "Microsoft.Resources/providers/read",
+    "Providers_ListAtTenantScope": "Microsoft.Resources/providers/read",
+    "Providers_ProviderPermissions": "Microsoft.Resources/subscriptions/providers/read",
+    "Providers_RegisterAtManagementGroupScope": "*/register/action",
+    "Providers_Unregister": "*/unregister/action",
+    "Resources_CheckExistenceById": "{resourceType}/read",
+    "Resources_GetById": "{resourceType}/read",
+    "Resources_CreateOrUpdateById": "{resourceType}/write",
+    "Resources_UpdateById": "{resourceType}/write",
+    "Resources_DeleteById": "{resourceType}/delete",
+    "Tenants_List": "Microsoft.Resources/tenants/read"
   }
 }
