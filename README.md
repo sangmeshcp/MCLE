@@ -6,6 +6,18 @@ APIs locally so official SDKs, CLIs and Terraform providers work with endpoint c
 Status: **P0 — Foundation**. See [STATUS.md](STATUS.md) for what works per service and
 [DESIGN.md](DESIGN.md) for the plan.
 
+## Install
+
+From a release (static Linux x86_64/arm64 binaries, macOS universal):
+
+```sh
+cargo binstall mcle-cli                                   # or download from GitHub Releases
+docker run --rm -p 4700:4700 ghcr.io/sangmeshcp/mcle      # distroless image, amd64/arm64
+```
+
+Releases ship `SHA256SUMS`, keyless cosign signatures (`*.sigstore.json`) and SLSA build
+provenance (`gh attestation verify <file> --repo sangmeshcp/MCLE`).
+
 ## Quick start
 
 ```sh

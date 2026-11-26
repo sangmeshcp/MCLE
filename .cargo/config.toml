@@ -1,2 +1,6 @@
 [alias]
 xtask = "run --quiet --package xtask --"
+
+# Pure-Rust dependency tree: Rust's bundled linker cross-links static musl binaries.
+[target.aarch64-unknown-linux-musl]
+linker = "rust-lld"
