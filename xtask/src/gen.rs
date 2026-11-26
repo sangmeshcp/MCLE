@@ -57,7 +57,7 @@ pub fn render(entry: &ServiceEntry, r: &Resolved) -> Result<String> {
         s.api.format
     )?;
     writeln!(o, "#![allow(missing_docs, dead_code, clippy::all)]")?;
-    writeln!(o, "use mcle_sdk::*;\n")?;
+    writeln!(o, "use mcle_sdk::*;\n\npub mod api;\npub mod shapes;\n")?;
     let engines: Vec<String> = s.engines.iter().map(|e| format!("{e:?}")).collect();
     writeln!(
         o,
@@ -175,24 +175,28 @@ pub fn run(check: bool) -> Result<()> {
     let mut stale = Vec::new();
     for e in crate::manifest::load_all()? {
         let r = resolve(&e)?;
-        let text = render(&e, &r)?;
-        let path = e.dir.join("gen").join("mod.rs");
-        let current = std::fs::read_to_string(&path).unwrap_or_default();
-        if current != text {
+        let (shapes, api) = crate::shapes::render(&e, &r)?;
+        let dir = e.dir.join("gen");
+        for (file, text) in [
+            ("mod.rs", render(&e, &r)?),
+            ("shapes.rs", shapes),
+            ("api.rs", api),
+        ] {
+            let path = dir.join(file);
+            let rel = path
+                .strip_prefix(root())
+                .unwrap_or(&path)
+                .display()
+                .to_string();
+            if std::fs::read_to_string(&path).unwrap_or_default() == text {
+                continue;
+            }
             if check {
-                stale.push(
-                    path.strip_prefix(root())
-                        .unwrap_or(&path)
-                        .display()
-                        .to_string(),
-                );
+                stale.push(rel);
             } else {
-                std::fs::create_dir_all(path.parent().unwrap_or(&e.dir))?;
+                std::fs::create_dir_all(&dir)?;
                 std::fs::write(&path, text)?;
-                println!(
-                    "codegen: wrote {}",
-                    path.strip_prefix(root()).unwrap_or(&path).display()
-                );
+                println!("codegen: wrote {rel}");
             }
         }
     }

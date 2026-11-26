@@ -279,3 +279,11 @@ fn env_prints_exports() {
     assert!(s.contains("export AWS_ENDPOINT_URL=http://h:1"));
     assert!(!s.contains("AZURE_"));
 }
+
+#[tokio::test]
+async fn bundle_conformance() {
+    let s = all(IamMode::Off).await;
+    mcle_testkit::conformance::adapter_errors(&s).await;
+    let host = mcle_core::build_host(&CoreOptions::default()).unwrap();
+    mcle_testkit::conformance::metadata(&mcle_bundle::plugins(&host, &[]).services);
+}

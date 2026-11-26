@@ -2,6 +2,9 @@
 #![allow(missing_docs, dead_code, clippy::all)]
 use mcle_sdk::*;
 
+pub mod api;
+pub mod shapes;
+
 pub static MANIFEST: ServiceManifest = ServiceManifest {
     cloud: CloudId::AWS,
     name: "secretsmanager",

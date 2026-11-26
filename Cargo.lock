@@ -736,6 +736,7 @@ dependencies = [
  "mcle-engine-crud",
  "mcle-sdk",
  "mcle-testkit",
+ "serde",
  "serde_json",
  "tokio",
 ]
@@ -751,6 +752,7 @@ dependencies = [
  "mcle-gateway",
  "mcle-sdk",
  "mcle-testkit",
+ "serde",
  "serde_json",
  "tokio",
  "uuid",
@@ -765,6 +767,7 @@ dependencies = [
  "mcle-engine-crud",
  "mcle-sdk",
  "mcle-testkit",
+ "serde",
  "serde_json",
  "tokio",
 ]
@@ -779,6 +782,7 @@ dependencies = [
  "mcle-identity",
  "mcle-sdk",
  "mcle-testkit",
+ "serde",
  "serde_json",
  "tokio",
 ]
@@ -792,6 +796,7 @@ dependencies = [
  "mcle-engine-crud",
  "mcle-sdk",
  "mcle-testkit",
+ "serde",
  "serde_json",
  "tokio",
 ]
@@ -805,6 +810,7 @@ dependencies = [
  "mcle-engine-crud",
  "mcle-sdk",
  "mcle-testkit",
+ "serde",
  "serde_json",
  "tokio",
 ]
@@ -813,6 +819,7 @@ dependencies = [
 name = "mcle-testkit"
 version = "0.1.0"
 dependencies = [
+ "async-trait",
  "bytes",
  "http",
  "http-body-util",

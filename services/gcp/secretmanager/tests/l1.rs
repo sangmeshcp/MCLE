@@ -130,3 +130,31 @@ async fn regional_secrets_are_separate_from_global() {
         404
     );
 }
+
+#[tokio::test]
+async fn responses_decode_into_generated_shapes() {
+    use mcle_svc_gcp_secretmanager::gen::shapes::{ListSecretsResponse, Secret};
+    let s = TestServer::start(|host| {
+        let a = mcle_cloud_gcp::adapter(host);
+        (vec![mcle_svc_gcp_secretmanager::facade(host, &*a)], vec![a])
+    })
+    .await;
+    let body = serde_json::to_value(Secret {
+        labels: Some([("a".to_string(), "b".to_string())].into()),
+        ..Default::default()
+    })
+    .unwrap();
+    let r = s
+        .json("POST", "/v1/projects/t/secrets?secretId=s", &[], &body)
+        .await;
+    let sec: Secret = serde_json::from_slice(&r.body).unwrap();
+    assert_eq!(sec.name.as_deref(), Some("projects/t/secrets/s"));
+    let l: ListSecretsResponse = serde_json::from_slice(
+        &s.json("GET", "/v1/projects/t/secrets", &[], &Value::Null)
+            .await
+            .body,
+    )
+    .unwrap();
+    assert_eq!(l.total_size, Some(1));
+    assert_eq!(l.secrets.unwrap()[0].labels.as_ref().unwrap()["a"], "b");
+}
