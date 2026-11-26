@@ -1,7 +1,7 @@
 # Vendored API specs and IAM catalogs.
 # status = vendored: byte-for-byte copy of the upstream file at `ref`.
-# status = excerpt: hand-trimmed subset matching upstream names/paths, pending a
-#                   reachable, licence-compatible upstream source.
+# status = excerpt: MCLE-authored subset (operation names/paths only), checked against the
+#                   vendor docs because the upstream document is not redistributable.
 # Upstream licence texts: specs/LICENSES/.
 
 [[spec]]
@@ -42,26 +42,26 @@ status = "vendored"
 
 [[spec]]
 path = "specs/oci/api/objectstorage.json"
-source = "unconfirmed (docs.oracle.com not reachable from the build environment)"
+source = "https://docs.oracle.com/en-us/iaas/api/specs/c69b18d689f4a8981c8e382754fcdec5e5724348bd146172f4c0d20fe94f0a0d.yaml (verified against, not vendored)"
 format = "openapi"
 ref = "UNPINNED"
-license = "unconfirmed"
+license = "Oracle Corporation (proprietary; not redistributable)"
 status = "excerpt"
 
 [[spec]]
 path = "specs/ibm/api/resourcecontroller.json"
-source = "unconfirmed (cloud.ibm.com not reachable from the build environment)"
+source = "https://cloud.ibm.com/docs/apis/resource-controller (verified against, no OpenAPI published)"
 format = "openapi"
 ref = "UNPINNED"
-license = "unconfirmed"
+license = "IBM docs terms (not redistributable)"
 status = "excerpt"
 
 [[spec]]
 path = "specs/ibm/api/iamidentity.json"
-source = "unconfirmed"
+source = "https://cloud.ibm.com/docs/apis/iam-identity-token-api (verified against, no OpenAPI published)"
 format = "openapi"
 ref = "UNPINNED"
-license = "unconfirmed"
+license = "IBM docs terms (not redistributable)"
 status = "excerpt"
 
 [[catalog]]

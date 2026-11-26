@@ -104,7 +104,7 @@ pub static OPS: [OpMeta; 10] = [
     },
     OpMeta {
         name: "HeadBucket",
-        iam_action: IamAction("BUCKET_READ"),
+        iam_action: IamAction("BUCKET_INSPECT"),
         resource: ResourceExtractor::PathParam("bucketName"),
         level: FidelityLevel::L0,
         lro: LroBehavior::None,

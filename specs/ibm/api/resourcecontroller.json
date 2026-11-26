@@ -1,20 +1,47 @@
 {
   "openapi": "3.0.0",
-  "info": { "title": "IBM Cloud Resource Controller API", "version": "2.0" },
-  "x-mcle-excerpt": "Trimmed excerpt of the IBM Cloud Resource Controller v2 API. [VERIFY] upstream location/licence of IBM OpenAPI specs and replace with the pinned file (see specs/specs.lock).",
+  "info": {
+    "title": "IBM Cloud Resource Controller API",
+    "version": "2.0"
+  },
+  "x-mcle-excerpt": "Excerpt of the IBM Cloud Resource Controller v2 API. Paths verified against cloud.ibm.com/docs/apis/resource-controller and operation names against IBM/platform-services-go-sdk@b69a8b32 (Apache-2.0) on 2026-11-26. No downloadable OpenAPI document is published.",
   "paths": {
     "/v2/resource_instances": {
-      "get": { "operationId": "list_resource_instances" },
-      "post": { "operationId": "create_resource_instance" }
+      "get": {
+        "operationId": "list_resource_instances"
+      },
+      "post": {
+        "operationId": "create_resource_instance"
+      }
     },
     "/v2/resource_instances/{id}": {
-      "get": { "operationId": "get_resource_instance" },
-      "patch": { "operationId": "update_resource_instance" },
-      "delete": { "operationId": "delete_resource_instance" }
+      "get": {
+        "operationId": "get_resource_instance"
+      },
+      "patch": {
+        "operationId": "update_resource_instance"
+      },
+      "delete": {
+        "operationId": "delete_resource_instance"
+      }
     },
     "/v2/resource_instances/{id}/lock": {
-      "post": { "operationId": "lock_resource_instance" },
-      "delete": { "operationId": "unlock_resource_instance" }
+      "post": {
+        "operationId": "lock_resource_instance"
+      },
+      "delete": {
+        "operationId": "unlock_resource_instance"
+      }
+    },
+    "/v2/resource_instances/{id}/last_operation": {
+      "delete": {
+        "operationId": "cancel_lastop_resource_instance"
+      }
+    },
+    "/v2/resource_instances/{id}/resource_keys": {
+      "get": {
+        "operationId": "list_resource_keys_for_instance"
+      }
     }
   }
 }

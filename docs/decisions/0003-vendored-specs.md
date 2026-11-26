@@ -30,10 +30,30 @@ Apache-2.0 project.
 Ops tracked: 56 → 127. GCP location-scoped secrets (`projects/*/locations/*/secrets`) are now L1.
 All newly visible ops without bindings report L0 (`NotImplemented`) as before.
 
+## OCI and IBM: verified, not vendored (2026-11-26)
+
+`docs.oracle.com`, `docs.cloud.oracle.com` and `cloud.ibm.com` were added to the environment's
+allowed hosts to check what the vendors publish.
+
+- **OCI** publishes Swagger 2.0 specs (`docs.oracle.com/en-us/iaas/api/specs/index.json`), but
+  `info.license` is `Oracle Corporation` with no open-source terms, so the file is not vendored.
+  All 10 operation ids and paths in our excerpt match the published Object Storage spec.
+- **IBM** publishes HTML API reference only (no OpenAPI download) under IBM's docs terms.
+  Excerpt paths match the docs; operation names match `IBM/platform-services-go-sdk@b69a8b32`
+  (Apache-2.0). Added the two missing instance endpoints (`cancel_lastop_resource_instance`,
+  `list_resource_keys_for_instance`) as L0.
+
+Corrections from the check:
+
+| Item | Was | Now |
+|---|---|---|
+| OCI `HeadBucket` permission | `BUCKET_READ` | `BUCKET_INSPECT` |
+| IBM `lock_resource_instance` / `unlock_resource_instance` action | `resource-controller.instance.lock` / `.unlock` (do not exist) | `resource-controller.instance.update` |
+| IBM delete resource instance status | [VERIFY] | `204` confirmed |
+| IBM `/identity/token` response fields | [VERIFY] | confirmed |
+
 ## Not vendored
 
-- OCI and IBM: no public spec repository found on GitHub, and docs.oracle.com / cloud.ibm.com
-  are blocked by the build environment's network policy. Excerpts remain until a source is
-  confirmed.
 - IAM action catalogs remain excerpts; the AWS Service Authorization Reference, Azure provider
   operations and GCP permissions reference are published as docs pages, not versioned data.
+  OCI and IBM catalogs were checked against vendor docs (above).

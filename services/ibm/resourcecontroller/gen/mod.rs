@@ -14,16 +14,29 @@ pub static MANIFEST: ServiceManifest = ServiceManifest {
 
 pub mod op {
     use mcle_sdk::OpId;
-    pub const CREATE_RESOURCE_INSTANCE: OpId = OpId(0);
-    pub const DELETE_RESOURCE_INSTANCE: OpId = OpId(1);
-    pub const GET_RESOURCE_INSTANCE: OpId = OpId(2);
-    pub const LIST_RESOURCE_INSTANCES: OpId = OpId(3);
-    pub const LOCK_RESOURCE_INSTANCE: OpId = OpId(4);
-    pub const UNLOCK_RESOURCE_INSTANCE: OpId = OpId(5);
-    pub const UPDATE_RESOURCE_INSTANCE: OpId = OpId(6);
+    pub const CANCEL_LASTOP_RESOURCE_INSTANCE: OpId = OpId(0);
+    pub const CREATE_RESOURCE_INSTANCE: OpId = OpId(1);
+    pub const DELETE_RESOURCE_INSTANCE: OpId = OpId(2);
+    pub const GET_RESOURCE_INSTANCE: OpId = OpId(3);
+    pub const LIST_RESOURCE_INSTANCES: OpId = OpId(4);
+    pub const LIST_RESOURCE_KEYS_FOR_INSTANCE: OpId = OpId(5);
+    pub const LOCK_RESOURCE_INSTANCE: OpId = OpId(6);
+    pub const UNLOCK_RESOURCE_INSTANCE: OpId = OpId(7);
+    pub const UPDATE_RESOURCE_INSTANCE: OpId = OpId(8);
 }
 
-pub static OPS: [OpMeta; 7] = [
+pub static OPS: [OpMeta; 9] = [
+    OpMeta {
+        name: "cancel_lastop_resource_instance",
+        iam_action: IamAction("resource-controller.instance.delete"),
+        resource: ResourceExtractor::PathParam("id"),
+        level: FidelityLevel::L0,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::Natural,
+        plane: Plane::Control,
+        crud: None,
+    },
     OpMeta {
         name: "create_resource_instance",
         iam_action: IamAction("resource-controller.instance.create"),
@@ -81,8 +94,19 @@ pub static OPS: [OpMeta; 7] = [
         }),
     },
     OpMeta {
+        name: "list_resource_keys_for_instance",
+        iam_action: IamAction("resource-controller.key.retrieve"),
+        resource: ResourceExtractor::PathParam("id"),
+        level: FidelityLevel::L0,
+        lro: LroBehavior::None,
+        emits: &[],
+        idempotency: Idempotency::Natural,
+        plane: Plane::Control,
+        crud: None,
+    },
+    OpMeta {
         name: "lock_resource_instance",
-        iam_action: IamAction("resource-controller.instance.lock"),
+        iam_action: IamAction("resource-controller.instance.update"),
         resource: ResourceExtractor::PathParam("id"),
         level: FidelityLevel::L0,
         lro: LroBehavior::None,
@@ -93,7 +117,7 @@ pub static OPS: [OpMeta; 7] = [
     },
     OpMeta {
         name: "unlock_resource_instance",
-        iam_action: IamAction("resource-controller.instance.unlock"),
+        iam_action: IamAction("resource-controller.instance.update"),
         resource: ResourceExtractor::PathParam("id"),
         level: FidelityLevel::L0,
         lro: LroBehavior::None,
@@ -124,23 +148,23 @@ pub static ROUTES: RouteTable = RouteTable {
         Route {
             op: OpId(0),
             matcher: RouteMatch::Rest {
-                method: "POST",
-                path: "/v2/resource_instances",
+                method: "DELETE",
+                path: "/v2/resource_instances/{id}/last_operation",
                 query: &[],
             },
         },
         Route {
             op: OpId(1),
             matcher: RouteMatch::Rest {
-                method: "DELETE",
-                path: "/v2/resource_instances/{id}",
+                method: "POST",
+                path: "/v2/resource_instances",
                 query: &[],
             },
         },
         Route {
             op: OpId(2),
             matcher: RouteMatch::Rest {
-                method: "GET",
+                method: "DELETE",
                 path: "/v2/resource_instances/{id}",
                 query: &[],
             },
@@ -149,12 +173,28 @@ pub static ROUTES: RouteTable = RouteTable {
             op: OpId(3),
             matcher: RouteMatch::Rest {
                 method: "GET",
-                path: "/v2/resource_instances",
+                path: "/v2/resource_instances/{id}",
                 query: &[],
             },
         },
         Route {
             op: OpId(4),
+            matcher: RouteMatch::Rest {
+                method: "GET",
+                path: "/v2/resource_instances",
+                query: &[],
+            },
+        },
+        Route {
+            op: OpId(5),
+            matcher: RouteMatch::Rest {
+                method: "GET",
+                path: "/v2/resource_instances/{id}/resource_keys",
+                query: &[],
+            },
+        },
+        Route {
+            op: OpId(6),
             matcher: RouteMatch::Rest {
                 method: "POST",
                 path: "/v2/resource_instances/{id}/lock",
@@ -162,7 +202,7 @@ pub static ROUTES: RouteTable = RouteTable {
             },
         },
         Route {
-            op: OpId(5),
+            op: OpId(7),
             matcher: RouteMatch::Rest {
                 method: "DELETE",
                 path: "/v2/resource_instances/{id}/lock",
@@ -170,7 +210,7 @@ pub static ROUTES: RouteTable = RouteTable {
             },
         },
         Route {
-            op: OpId(6),
+            op: OpId(8),
             matcher: RouteMatch::Rest {
                 method: "PATCH",
                 path: "/v2/resource_instances/{id}",

@@ -14,7 +14,7 @@ A ✔ means the declared level is backed by a test marker (`verifies(Lx): ...`).
 | azure | [Resource Manager (generic ARM)](#azure-arm) | T0 | custom | 47 | 28 | 19 | 0 | 0 | 47/47 |
 | gcp | [Secret Manager](#gcp-secretmanager) | T0 | generic | 36 | 26 | 10 | 0 | 0 | 36/36 |
 | ibm | [IAM Identity (token endpoint)](#ibm-iamidentity) | T0 | custom | 1 | 0 | 0 | 1 | 0 | 1/1 |
-| ibm | [Resource Controller](#ibm-resourcecontroller) | T0 | generic | 7 | 2 | 5 | 0 | 0 | 7/7 |
+| ibm | [Resource Controller](#ibm-resourcecontroller) | T0 | generic | 9 | 4 | 5 | 0 | 0 | 9/9 |
 | oci | [Object Storage](#oci-objectstorage) | T0 | custom | 10 | 4 | 6 | 0 | 0 | 10/10 |
 
 ## Not yet implemented (by phase)
@@ -169,12 +169,14 @@ Resource Controller — `mcle-svc-ibm-resourcecontroller` — spec `specs/ibm/ap
 
 | op | level | ✔ | IAM action | CRUD | LRO | plane |
 |---|---|---|---|---|---|---|
+| `cancel_lastop_resource_instance` | L0 | — | `resource-controller.instance.delete` | — | none | control |
 | `create_resource_instance` | L1 | ✔ | `resource-controller.instance.create` | resource_instance:Create | none | control |
 | `delete_resource_instance` | L1 | ✔ | `resource-controller.instance.delete` | resource_instance:Delete | none | control |
 | `get_resource_instance` | L1 | ✔ | `resource-controller.instance.retrieve` | resource_instance:Read | none | control |
 | `list_resource_instances` | L1 | ✔ | `resource-controller.instance.retrieve` | resource_instance:List | none | control |
-| `lock_resource_instance` | L0 | — | `resource-controller.instance.lock` | — | none | control |
-| `unlock_resource_instance` | L0 | — | `resource-controller.instance.unlock` | — | none | control |
+| `list_resource_keys_for_instance` | L0 | — | `resource-controller.key.retrieve` | — | none | control |
+| `lock_resource_instance` | L0 | — | `resource-controller.instance.update` | — | none | control |
+| `unlock_resource_instance` | L0 | — | `resource-controller.instance.update` | — | none | control |
 | `update_resource_instance` | L1 | ✔ | `resource-controller.instance.update` | resource_instance:Update | none | control |
 
 ### oci-objectstorage
@@ -189,7 +191,7 @@ Object Storage — `mcle-svc-oci-objectstorage` — spec `specs/oci/api/objectst
 | `GetBucket` | L1 | ✔ | `BUCKET_READ` | bucket:Read | none | control |
 | `GetNamespace` | L1 | ✔ | `OBJECTSTORAGE_NAMESPACE_READ` | custom | none | control |
 | `GetObject` | L0 | — | `OBJECT_READ` | — | none | data |
-| `HeadBucket` | L0 | — | `BUCKET_READ` | — | none | control |
+| `HeadBucket` | L0 | — | `BUCKET_INSPECT` | — | none | control |
 | `ListBuckets` | L1 | ✔ | `BUCKET_INSPECT` | bucket:List | none | control |
 | `PutObject` | L0 | — | `OBJECT_CREATE` | — | none | data |
 | `UpdateBucket` | L1 | ✔ | `BUCKET_UPDATE` | bucket:Update | none | control |

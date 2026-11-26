@@ -29,7 +29,6 @@ Date: 2026-11-25 · Status: accepted
 
 ## Still [VERIFY]
 
-- IBM Resource Controller error envelope and delete status code.
-- OCI/IBM OpenAPI upstream locations and licences.
+- IBM Resource Controller error envelope (delete status `204` confirmed in 0003).
 - `AWS_ENDPOINT_URL_<SVC>`, Azure authority override, GCP `CLOUDSDK_API_ENDPOINT_OVERRIDES_*`
   env vars for CLIs (only SDK constructor overrides were tested).
