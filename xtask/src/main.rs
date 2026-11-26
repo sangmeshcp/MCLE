@@ -9,6 +9,7 @@ mod manifest;
 mod markers;
 mod resolve;
 mod scaffold;
+mod shapes;
 mod spec;
 mod status;
 

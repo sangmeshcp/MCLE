@@ -11,6 +11,8 @@ use mcle_sdk::{CloudAdapter, Host, ServiceFacade};
 use serde_json::Value;
 use std::sync::Arc;
 
+pub mod conformance;
+
 pub type Build = Vec<Arc<dyn ServiceFacade>>;
 
 pub struct TestServer {

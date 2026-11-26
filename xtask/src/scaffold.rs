@@ -66,7 +66,7 @@ pub fn run(cloud: &str, service: &str, tier: &str, format: Option<&str>) -> Resu
     std::fs::write(
         dir.join("Cargo.toml"),
         format!(
-            "[package]\nname = \"{krate}\"\ndescription = \"MCLE facade: {cloud} {service}.\"\nversion.workspace = true\nedition.workspace = true\nlicense.workspace = true\npublish.workspace = true\n\n[dependencies]\nmcle-engine-crud.workspace = true\nmcle-sdk.workspace = true\n\n[dev-dependencies]\nserde_json.workspace = true\nmcle-cloud-{cloud}.workspace = true\nmcle-testkit.workspace = true\ntokio.workspace = true\n\n[lints]\nworkspace = true\n"
+            "[package]\nname = \"{krate}\"\ndescription = \"MCLE facade: {cloud} {service}.\"\nversion.workspace = true\nedition.workspace = true\nlicense.workspace = true\npublish.workspace = true\n\n[dependencies]\nasync-trait.workspace = true\nmcle-engine-crud.workspace = true\nmcle-sdk.workspace = true\nserde.workspace = true\nserde_json.workspace = true\n\n[dev-dependencies]\nserde_json.workspace = true\nmcle-cloud-{cloud}.workspace = true\nmcle-testkit.workspace = true\ntokio.workspace = true\n\n[lints]\nworkspace = true\n"
         ),
     )?;
     std::fs::write(

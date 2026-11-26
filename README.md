@@ -31,6 +31,6 @@ Internal API: `/_mcle/{health,ready,info,env,reset,report,state/export,state/imp
 
 ## Development
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) and [CLAUDE.md](CLAUDE.md).
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md).
 
 Licence: Apache-2.0.

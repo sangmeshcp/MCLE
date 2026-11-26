@@ -6,6 +6,7 @@ license.workspace = true
 publish.workspace = true
 
 [dependencies]
+serde.workspace = true
 serde_json.workspace = true
 mcle-cloud-oci.workspace = true
 mcle-engine-crud.workspace = true
@@ -14,6 +15,7 @@ async-trait.workspace = true
 
 
 [dev-dependencies]
+serde.workspace = true
 serde_json.workspace = true
 mcle-testkit.workspace = true
 tokio.workspace = true

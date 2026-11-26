@@ -6,6 +6,7 @@ license.workspace = true
 publish.workspace = true
 
 [dependencies]
+serde.workspace = true
 serde_json.workspace = true
 mcle-cloud-azure.workspace = true
 mcle-engine-crud.workspace = true
@@ -16,6 +17,7 @@ uuid.workspace = true
 [dev-dependencies]
 mcle-core.workspace = true
 mcle-gateway.workspace = true
+serde.workspace = true
 serde_json.workspace = true
 mcle-testkit.workspace = true
 tokio.workspace = true

@@ -10,7 +10,7 @@ Target: a new service at L1 in under an hour, following only this file.
 | `crates/mcle-core`, `mcle-gateway`, `mcle-iam`, `mcle-identity`, `mcle-persist`, `mcle-runtime` | Cloud-agnostic core. |
 | `engines/*` | Shared semantics (`crud` today). |
 | `clouds/<cloud>` | One `CloudAdapter` per cloud: detection, errors, LRO rendering, CRUD shaper. |
-| `services/<cloud>/<svc>` | Service facades: `service.toml`, generated `gen/`, `src/`, `tests/`. |
+| `services/<cloud>/<svc>` | Service facades: `service.toml`, generated `gen/` (`mod.rs` routes + op metadata, `shapes.rs` serde types, `api.rs` typed trait), `src/`, `tests/`. |
 | `specs/` | Vendored API specs and IAM catalogs (see `specs/specs.lock`). |
 | `xtask/` | Codegen, bundle, status, lints, scaffolding. |
 | `tests/sdk` | Official-SDK tests (pytest). |
@@ -47,7 +47,13 @@ This creates `services/gcp/pubsub/` (manifest, facade, smoke test), a stub spec,
 5. Add tests with markers backing every claimed level:
    - Rust: `// verifies(L1): CreateTopic, GetTopic` in `services/<cloud>/<svc>/tests/*.rs`
    - SDK: `# verifies(L2): gcp/pubsub: projects.topics.publish` in `tests/sdk/*.py`
-6. `cargo xtask ci` must pass.
+6. Add a CRUD conformance driver (`tests/conformance.rs`) implementing
+   `mcle_testkit::conformance::CrudDriver` for each CRUD resource; `conformance::crud` checks
+   create/duplicate/read/list/update/delete/re-delete invariants.
+7. For L2 work, implement the generated `gen::api::Api` trait (typed inputs/outputs from
+   `gen/shapes.rs`; unimplemented methods default to `NotImplemented`) and route to it with
+   `gen::api::dispatch`.
+8. `cargo xtask ci` must pass.
 
 ## Extension points
 
@@ -67,6 +73,9 @@ Implement a trait from `mcle-sdk` in a new crate; never edit core crates:
 | `FunctionRuntime` / `ExecutionBackend` | function and container execution |
 | `PersistenceBackend` | state store |
 | `PipelineLayer` | a request pipeline layer |
+
+Removing a service: delete its directory, then `git checkout crates/mcle-bundle` (or delete
+its lines there) before running `cargo xtask bundle`, since cargo must load the workspace first.
 
 A new cloud: add `clouds/<name>` exposing `pub fn adapter(host: &Host) -> Arc<dyn CloudAdapter>`,
 then `cargo xtask bundle`.

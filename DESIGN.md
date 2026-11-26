@@ -10,7 +10,7 @@
 ## 0. How to use this document
 
 1. Read this whole file before writing code. §2 (principles) and §6 (extension model) are binding.
-2. `CLAUDE.md` is generated from §21; `CONTRIBUTING.md` from §6.
+2. `AGENTS.md` (agent instructions; `CLAUDE.md` imports it) is generated from §21; `CONTRIBUTING.md` from §6.
 3. Follow the roadmap (§19). Phase P0 must finish — and the plugin SDK must be stable — before service work fans out.
 4. Anything marked **`[VERIFY]`** is an assumption about a vendor SDK/CLI/API/spec that must be confirmed against current docs or a real test before building on it. Record the outcome in `docs/decisions/`.
 5. Keep `STATUS.md` generated (never hand-written) from service manifests + test results (§6.4).
@@ -140,7 +140,8 @@ Request lifecycle (HTTP):
 ```
 mcle/
 ├── Cargo.toml                    # workspace
-├── CLAUDE.md                     # from §21
+├── AGENTS.md                     # agent instructions, from §21
+├── CLAUDE.md                     # `@AGENTS.md` import for Claude Code
 ├── CONTRIBUTING.md               # from §6
 ├── DESIGN.md                     # this file
 ├── STATUS.md                     # GENERATED coverage matrix
@@ -750,9 +751,9 @@ WS-IAM, WS-Secrets, WS-Object, WS-Messaging first (most services depend on them)
 
 ---
 
-## 21. CLAUDE.md seed
+## 21. Agent instructions
 
-See `CLAUDE.md` at the repo root.
+See `AGENTS.md` at the repo root (`CLAUDE.md` imports it).
 
 ---
 

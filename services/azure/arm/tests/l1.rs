@@ -304,3 +304,33 @@ async fn long_running_create_polls_to_success() {
         "Succeeded"
     );
 }
+
+#[tokio::test]
+async fn responses_decode_into_generated_shapes() {
+    use mcle_svc_azure_arm::gen::shapes::{GenericResource, ResourceGroup};
+    let s = server(0).await;
+    let rg = s
+        .json(
+            "PUT",
+            &format!("{SUB}/resourcegroups/typed{V}"),
+            &[],
+            &json!({"location": "westus"}),
+        )
+        .await;
+    let rg: ResourceGroup = serde_json::from_slice(&rg.body).unwrap();
+    assert_eq!(rg.location.as_deref(), Some("westus"));
+    let res = format!("{SUB}/resourcegroups/typed/providers/Microsoft.Web/sites/app{V}");
+    let r = s
+        .json(
+            "PUT",
+            &res,
+            &[],
+            &json!({"location": "westus", "kind": "app"}),
+        )
+        .await;
+    let r: GenericResource = serde_json::from_slice(&r.body).unwrap();
+    assert_eq!(
+        (r.name.as_deref(), r.r#type.as_deref(), r.kind.as_deref()),
+        (Some("app"), Some("Microsoft.Web/sites"), Some("app"))
+    );
+}
