@@ -604,7 +604,7 @@ Start → ready → inject env → exec child → forward signals → artifacts 
 `mcle.seed.yaml` (declarative resources incl. IAM, functions from local dirs, topics, secrets), `--init-dir`, `mcle state export/import` (versioned format) for CI caching keyed by infra hash.
 
 ### 15.7 Distribution
-Static musl binaries (linux x86_64/arm64), macOS universal, Windows (decision §22); distroless multi-arch image; SHA256SUMS, cosign, SLSA provenance; Homebrew; `cargo binstall`. Docs always pin versions.
+Static musl binaries (linux x86_64/arm64), macOS universal (no Windows until requested, §22.10); distroless multi-arch image; SHA256SUMS, cosign, SLSA provenance; Homebrew; `cargo binstall`. Docs always pin versions.
 
 ### 15.8 Platform integrations
 | Platform | Deliverable |
@@ -768,5 +768,5 @@ See `AGENTS.md` at the repo root (`CLAUDE.md` imports it).
 7. **Persistence backend** — `redb` vs. serde snapshot files.
 8. **Release scope** — single 1.0 for all five clouds vs. per-cloud 1.0s (e.g. AWS + Azure + GCP first, OCI + IBM as 1.1).
 9. **Repo/org names** for marketplace integrations and BCR module.
-10. **Windows runners** — best effort or supported in 1.0?
+10. ~~**Windows runners**~~ — **Decided:** no Windows binaries or runners until requested in a GitHub issue (docs/decisions/0005-release-pipeline.md).
 11. **Governance** — foundation-neutral from day 1 (e.g. CNCF sandbox path) or company/personal repo first?
