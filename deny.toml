@@ -14,11 +14,6 @@ allow = [
 ]
 confidence-threshold = 0.9
 
-[[licenses.clarify]]
-crate = "mcle-sdk"
-expression = "Apache-2.0"
-license-files = []
-
 [licenses.private]
 ignore = true
 

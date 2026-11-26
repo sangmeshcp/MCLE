@@ -280,7 +280,7 @@ Creates: `codegen.toml` entry → generated crate → facade skeleton (all ops L
 - **SDK harness:** start MCLE on a random port, inject env, run the official SDK test file.
 
 ### 6.8 Governance
-- Licence: Apache-2.0 recommended (patent grant matters for a contributor ecosystem) + DCO sign-off. (Decision §22.)
+- Licence: Apache-2.0 (decided, docs/decisions/0002-licence.md) + DCO sign-off.
 - `rfcs/` for any change to principles (§2), `mcle-sdk`, core types, or engine traits. Lightweight template: motivation, design, alternatives, migration.
 - CODEOWNERS per cloud and per engine; core changes need a core maintainer.
 - Labels: `good-first-op`, `tier:T0`, `cloud:<x>`, `level:L1→L2`. `STATUS.md` doubles as the contribution backlog.
@@ -758,7 +758,7 @@ See `CLAUDE.md` at the repo root.
 
 ## 22. Open decisions (for Sang)
 
-1. **Name + licence** — Apache-2.0 + DCO recommended for a contributor ecosystem (vs MIT).
+1. ~~**Name + licence**~~ — **Decided:** name MCLE, licence Apache-2.0 (docs/decisions/0002-licence.md).
 2. **Default ports** — HTTP `4700`, Kafka `9092`, AMQP `5672`; or offset Kafka/AMQP to avoid clashing with real local brokers?
 3. **Kafka/AMQP** — native protocol servers in core (proposed) vs. Redpanda/broker sidecars only.
 4. **Relational/cache data planes** — sidecar containers + external-URL mode (proposed) vs. embedded engines (e.g. PGlite-style) for no-Docker CI.
