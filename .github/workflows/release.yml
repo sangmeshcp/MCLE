@@ -144,6 +144,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      packages: read
+      attestations: read
     env:
       GH_TOKEN: ${{ github.token }}
       TAG: v${{ needs.publish.outputs.version }}
@@ -154,6 +156,12 @@ jobs:
     steps:
       - uses: sigstore/cosign-installer@v3
       - uses: docker/setup-qemu-action@v3
+      # New GHCR packages are private; pulling and cosign verification need credentials.
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Download release assets
         run: gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --dir rel
       - name: Checksums
