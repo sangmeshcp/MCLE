@@ -53,3 +53,12 @@ issue.
   from CI.
 - The publish/verify jobs (cosign, attestations, GHCR push, macOS link) run only on GitHub;
   first exercised by a `v0.1.0-rc.1` tag.
+
+## Found by v0.1.0-rc.1 (2026-11-27)
+
+The rc.1 run built, signed, attested and published everything, and `verify` confirmed checksums,
+archive signatures, provenance, static linking and the image signature. It then failed to run the
+image: `exec: "/usr/local/bin/mcle": permission denied`. `actions/upload-artifact` /
+`download-artifact` drop the executable bit, and the Dockerfile copied the binary as-is. Fix:
+`COPY --chmod=0755`; the CI `package` job now strips the bit before building so this is caught on
+every PR. The `0.1.0-rc.1` image is not usable; the release archives are (tar keeps modes).
