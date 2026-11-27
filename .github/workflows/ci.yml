@@ -73,6 +73,9 @@ jobs:
       - run: cargo xtask dist --target x86_64-unknown-linux-musl --out dist
       - run: cargo xtask dist --checksums dist && (cd dist && sha256sum -c SHA256SUMS)
       - run: file dist/bin/linux-amd64/mcle | grep -q "static"
+      # Release jobs pass binaries through upload/download-artifact, which drops the
+      # executable bit; reproduce that so the image build must not rely on it.
+      - run: chmod a-x dist/bin/linux-amd64/mcle
       - uses: docker/setup-buildx-action@v3
       - uses: docker/build-push-action@v6
         with:
