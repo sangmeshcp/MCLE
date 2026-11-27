@@ -4,6 +4,7 @@ version.workspace = true
 edition.workspace = true
 license.workspace = true
 publish.workspace = true
+repository.workspace = true
 
 [[bin]]
 name = "mcle"
@@ -38,6 +39,19 @@ cloud-ibm = ["mcle-bundle/all-ibm"]
 
 [dev-dependencies]
 mcle-testkit.workspace = true
+
+[package.metadata.binstall]
+pkg-url = "{ repo }/releases/download/v{ version }/mcle-{ version }-{ target }.tar.gz"
+bin-dir = "mcle-{ version }-{ target }/{ bin }{ binary-ext }"
+pkg-fmt = "tgz"
+
+[package.metadata.binstall.overrides.aarch64-apple-darwin]
+pkg-url = "{ repo }/releases/download/v{ version }/mcle-{ version }-universal-apple-darwin.tar.gz"
+bin-dir = "mcle-{ version }-universal-apple-darwin/{ bin }"
+
+[package.metadata.binstall.overrides.x86_64-apple-darwin]
+pkg-url = "{ repo }/releases/download/v{ version }/mcle-{ version }-universal-apple-darwin.tar.gz"
+bin-dir = "mcle-{ version }-universal-apple-darwin/{ bin }"
 
 [lints]
 workspace = true

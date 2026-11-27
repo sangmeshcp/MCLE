@@ -2,6 +2,7 @@
 
 mod bundle;
 mod deps;
+mod dist;
 mod gen;
 mod ir;
 mod lint;
@@ -24,6 +25,9 @@ Commands:
   check-deps               enforce core/sdk/engines never depend on clouds/services
   lint-manifests           every op declared; every fidelity claim test-backed
   new-service --cloud C --service S [--tier T0|T1|T2] [--format smithy|openapi|discovery]
+  dist --target T [--out DIR] [--binary PATH]
+                           build (or take PATH) and package mcle-<version>-<T>.tar.gz
+  dist --checksums DIR     write DIR/SHA256SUMS for all archives in DIR
   ci                       all of: codegen --check, bundle --check, status --check, check-deps, lint-manifests
   tf-test --cloud C        (P3) Terraform check pipeline
   parity-record            (P4) record parity fixtures against a real account
@@ -54,6 +58,18 @@ fn main() -> Result<()> {
                 &arg(&args, "--tier").unwrap_or_else(|| "T2".into()),
                 arg(&args, "--format").as_deref(),
             )
+        }
+        Some("dist") => {
+            if let Some(dir) = arg(&args, "--checksums") {
+                return dist::checksums(std::path::Path::new(&dir));
+            }
+            let Some(target) = arg(&args, "--target") else {
+                bail!("usage: cargo xtask dist --target <triple> [--out dist] [--binary path]");
+            };
+            let out =
+                std::path::PathBuf::from(arg(&args, "--out").unwrap_or_else(|| "dist".into()));
+            std::fs::create_dir_all(&out)?;
+            dist::package(&target, &out, arg(&args, "--binary").map(Into::into)).map(|_| ())
         }
         Some("ci") => {
             gen::run(true)?;
